@@ -6,13 +6,26 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    colors: {
+      lightGreyBlue: "#7d8c92",
+    },
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: "2rem",
+        sm: "4rem",
+        lg: "6rem",
+        xl: "8rem",
+        '2xl': "6rem",
+      }
+    },
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      },
     },
   },
-  plugins: [],
+  daisyui: {
+    themes: ["cupcake"]
+  },
+  plugins: [
+    require("daisyui")
+  ],
 }
