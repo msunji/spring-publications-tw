@@ -31,8 +31,4 @@
   h3 {
     @apply text-lg;
   }
-
-  p a, a:hover, a:visited, a:focus {
-    text-decoration: underline;
-  }
 }
