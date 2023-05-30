@@ -29,7 +29,7 @@ export type Book = {
   id: string;
   title: string;
   author: string;
-  thumbnail?: Array<Thumbnail>;
+  thumbnail: Array<Thumbnail> | null;
   price: number;
-  desc?: string;
+  desc: string | null;
 }
