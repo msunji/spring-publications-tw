@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="grid grid-flow-col gap-4">
         <Link className="link link-hover" href="/about">關於我們</Link>
         <Link className="link link-hover" href="/contact">聯絡我們</Link>
-      </div> 
+      </div>
       <div>
         <p>Copyright © 2023 - All right Reserved by Spring Publications 清泉</p>
       </div>
