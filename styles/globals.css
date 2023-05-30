@@ -32,7 +32,7 @@
     @apply text-lg;
   }
 
-  p a {
+  p a, a:hover, a:visited, a:focus {
     text-decoration: underline;
   }
 }
