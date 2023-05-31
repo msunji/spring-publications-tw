@@ -4,10 +4,16 @@ import { getBookId } from '@/lib/airtable';
 import { Book } from '@/types/types';
  
 export default function Page({ data } : { data:Book }) {
-
   const { title, author, price, desc } = data;
 
-  const thumbnailSrc = "thumbnail" in data ? data.thumbnail[0].thumbnails.large.url : "/images/PlaceholderCover.jpg";
+  let thumbnailSrc;
+
+  if (data.thumbnail && typeof Array.isArray(data.thumbnail)) {
+    thumbnailSrc = data.thumbnail[0].thumbnails.large.url;
+  } else {
+    thumbnailSrc = "/images/PlaceholderCover.jpg";
+  }
+
   return (
     <section>
       <div className="text-sm breadcrumbs mb-5">
