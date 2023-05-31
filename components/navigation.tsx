@@ -14,7 +14,7 @@ export default function Navbar() {
             <li><a>聯絡我們</a></li>
           </ul>
         </div>
-        <Link href="/" className="btn btn-ghost normal-case text-xl">Spring Publications</Link>
+        <Link href="/" className="btn btn-ghost normal-case text-3xl">清泉</Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
