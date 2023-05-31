@@ -1,9 +1,11 @@
-import { Html, Head, Main, NextScript } from 'next/document'
+import { Html, Main, Head, NextScript } from 'next/document'
 
 export default function Document() {
   return (
     <Html lang="en" data-theme="cupcake">
-      <Head />
+      <Head>
+        <meta property="og:title" content="清泉 - Spring Publications" key="title" />
+      </Head>
       <body>
         <Main />
         <NextScript />
