@@ -1,4 +1,4 @@
-import Navbar from './navbar';
+import Navbar from './navigation';
 import Footer from './footer';
 
 type Props = {
