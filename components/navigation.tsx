@@ -13,6 +13,7 @@ export default function Navbar() {
               <li><Link href="/about">關於我們</Link></li>
               <li><Link href="/">全部商品</Link></li>
               <li><a>聯絡我們</a></li>
+              <li><a>購物車</a></li>
             </ul>
           </div>
           <Link href="/" className="btn btn-ghost normal-case text-3xl">清泉</Link>
@@ -22,6 +23,7 @@ export default function Navbar() {
             <li><Link href="/about">關於我們</Link></li>
             <li><Link href="/">全部商品</Link></li>
             <li><a>聯絡我們</a></li>
+            <li><a>購物車</a></li>
           </ul>
         </div>
       </nav>
