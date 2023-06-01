@@ -13,7 +13,7 @@ export default function Layout({ children }: Props) {
         <title>清泉 - Spring Publications</title>
       </Head>
       <Navbar />
-      <main className="min-h-screen container mx-auto my-20">
+      <main className="min-h-screen container mx-auto my-20 ">
         <section className="mb-20">
           {children}
         </section>
