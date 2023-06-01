@@ -12,7 +12,7 @@ export default function Navbar() {
             <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
               <li><Link href="/about">關於我們</Link></li>
               <li><Link href="/">全部商品</Link></li>
-              <li><a>聯絡我們</a></li>
+              <li><Link href="/contact">聯絡我們</Link></li>
               <li><a>購物車</a></li>
             </ul>
           </div>
@@ -22,7 +22,7 @@ export default function Navbar() {
           <ul className="menu menu-horizontal px-1">
             <li><Link href="/about">關於我們</Link></li>
             <li><Link href="/">全部商品</Link></li>
-            <li><a>聯絡我們</a></li>
+            <li><Link href="/contact">聯絡我們</Link></li>
             <li><a>購物車</a></li>
           </ul>
         </div>
