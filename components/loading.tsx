@@ -1,7 +1,7 @@
 export default function Loading() {
   return (
     <section>
-      <div className="text-center flex flex-col align-center">
+      <div className="text-center flex flex-col items-center w-full">
         <h2>正在加載</h2>
         <div>
           <svg aria-hidden="true" className="w-10 h-10 mr-2 text-neutral-800 animate-spin dark:text-gray-600 fill-accent" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
