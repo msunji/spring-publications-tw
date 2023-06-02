@@ -23,8 +23,8 @@ export default function Page({ data } : { data:Book }) {
     if (qty <= 0) return 0;
     setQty(qty-1);
   }
-  const handleQtyChange = (e) => {
-    const val = e.target.value;
+  const handleQtyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = Number(e.target.value);
     if (val < 0) return e.preventDefault();
     setQty(val);
   }
