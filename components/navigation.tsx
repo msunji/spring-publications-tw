@@ -25,7 +25,11 @@ export default function Navbar() {
             </ul>
         </div>
         <div className="navbar-end">
-          <a>購物車</a><div className="badge badge-accent ml-2">0</div>
+          <Link href="/cart">
+            <div>
+              購物車<div className="badge badge-accent ml-2">0</div>
+            </div>
+          </Link>
         </div>
       </nav>
     </div>
