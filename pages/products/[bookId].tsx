@@ -1,3 +1,4 @@
+import { useState} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getBookId } from '@/lib/airtable';
@@ -5,6 +6,7 @@ import { Book } from '@/types/types';
  
 export default function Page({ data } : { data:Book }) {
   const { title, author, price, desc } = data;
+  const [qty, setQty] = useState(1);
 
   let thumbnailSrc;
 
@@ -12,6 +14,19 @@ export default function Page({ data } : { data:Book }) {
     thumbnailSrc = data.thumbnail[0].thumbnails.large.url;
   } else {
     thumbnailSrc = "/images/PlaceholderCover.jpg";
+  }
+
+  const incrementQty = () => {
+    setQty(qty+1);
+  }
+  const decrementQty = () => {
+    if (qty <= 0) return 0;
+    setQty(qty-1);
+  }
+  const handleQtyChange = (e) => {
+    const val = e.target.value;
+    if (val < 0) return e.preventDefault();
+    setQty(val);
   }
 
   return (
@@ -38,22 +53,22 @@ export default function Page({ data } : { data:Book }) {
             <p className="text-lightGreyBlue mb-5">作者: {author}</p>
             <p className="text-lg font-semibold text-primary">NT$ {price}</p>
           </div>
-          <div className="flex flex-wrap items-end gap-5 max-w-[80%]">
-            <div className="form-control flex-1">
-              <div className="qty-input">
+          <div className="flex flex-wrap items-end gap-5">
+            <div className="form-control">
+              <div className="qty-input grow">
                 <label htmlFor="qty-input-number" className="font-semibold">數量</label>
                 <div className="flex flex-row relative">
-                  <button data-action="decrement" className="btn rounded-l-l rounded-r-none">
+                  <button data-action="decrement" className="btn rounded-l-l rounded-r-none w-10" onClick={decrementQty}>
                     <span className="m-auto text-3xl font-thin">-</span>
                   </button>
-                  <input type="number" placeholder="0" value="0" name="qty-input-number" className="input input-bordered font-semibold text-center rounded-none focus:outline-none w-full px-1" />
-                  <button data-action="increment" className="btn rounded-l-none rounded-r-lg">
+                  <input type="number" placeholder="1" value={qty} onChange={handleQtyChange} name="qty-input-number" className="input input-bordered font-semibold text-center rounded-none focus:outline-none w-16" />
+                  <button data-action="increment" className="btn rounded-l-none rounded-r-lg w-10" onClick={incrementQty}>
                     <span className="m-auto text-3xl font-thin">+</span>
                   </button>
                 </div>
               </div>
             </div>
-            <div className="flex-1">
+            <div className="grow">
               <button className="btn btn-secondary btn-block">Add to Cart</button>
             </div>
           </div>
