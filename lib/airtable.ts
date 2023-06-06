@@ -26,14 +26,14 @@ function getFieldData(record:any = {}) {
   return book;
 }
 
-export function getBooks() {
+export function getBooks(baseName:string, filterName:string) {
   const base = initAirtable();
   const inventory:Array<any> = [];
   return new Promise<Array<any>>((resolve, reject) => {
-    base("Product List")
+    base(baseName)
       .select({
-        fields: ["Title", "Author", "Thumbnail", "Price", "Description", "Publish"],
-        filterByFormula: "{Publish} = 1",
+        fields: ["Title", "Author", "Thumbnail", "Price", "Description"],
+        filterByFormula: filterName,
       })
       .eachPage(
         function page(records:Array<any>, fetchNextPage: () =>{}) {
