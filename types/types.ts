@@ -29,6 +29,7 @@ export type Book = {
   id: string;
   title: string;
   author: string;
+  categories?: Array<string>;
   thumbnail?: Array<Thumbnail>;
   price: number;
   desc?: string;
