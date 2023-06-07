@@ -18,8 +18,9 @@ const FeaturedThumbnail = ({...props}:Book) => {
   }
 
   return (
-    <div key={id} className="carousel-item">
+    <div key={id}>
       <Image
+        className="rounded-lg"
         src={thumbnailSrc}
         width={150}
         height={250}
