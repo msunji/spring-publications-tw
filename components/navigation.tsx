@@ -11,7 +11,7 @@ export default function Navbar() {
             </label>
             <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-darkBlue rounded-box w-52">
               <li><Link href="/about">關於我們</Link></li>
-              <li><Link href="/products">全部商品</Link></li>
+              <li><Link href="/view-products">全部商品</Link></li>
               <li><Link href="/contact">聯絡我們</Link></li>
             </ul>
           </div>
@@ -20,7 +20,7 @@ export default function Navbar() {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li><Link href="/about">關於我們</Link></li>
-            <li><Link href="/products">全部商品</Link></li>
+            <li><Link href="/view-products">全部商品</Link></li>
             <li><Link href="/contact">聯絡我們</Link></li>
             </ul>
         </div>
