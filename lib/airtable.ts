@@ -51,7 +51,6 @@ export function getBooks(baseName:string, filterName:string) {
             console.error(err);
             return;
           }
-          console.log(inventory);
           return resolve(inventory);
       });
   });
