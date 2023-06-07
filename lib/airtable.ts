@@ -10,6 +10,7 @@ function getFieldData(record:any = {}) {
   const id:string = record.getId();
   const title:string = record.get("Title");
   const author:string = record.get("Author");
+  const quantity:number = record.get("Quantity");
   const categories:Array<string> = record.get("Categories");
   const thumbnail:Array<Thumbnail> = record.get("Thumbnail");
   const price:number = record.get("Price");
@@ -19,6 +20,7 @@ function getFieldData(record:any = {}) {
     id,
     title,
     author,
+    quantity,
     categories,
     thumbnail,
     price,
@@ -34,7 +36,7 @@ export function getBooks(baseName:string, filterName:string) {
   return new Promise<Array<any>>((resolve, reject) => {
     base(baseName)
       .select({
-        fields: ["Title", "Author", "Categories", "Thumbnail", "Price", "Description"],
+        fields: ["Title", "Author", "Quantity", "Categories", "Thumbnail", "Price", "Description"],
         filterByFormula: filterName,
       })
       .eachPage(
@@ -49,6 +51,7 @@ export function getBooks(baseName:string, filterName:string) {
             console.error(err);
             return;
           }
+          console.log(inventory);
           return resolve(inventory);
       });
   });
