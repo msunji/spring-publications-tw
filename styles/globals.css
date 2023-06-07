@@ -41,7 +41,7 @@
 }
 
 @layer components {
-  .btn {
+  .btn:not(.page-select .btn) {
     @apply rounded-lg;
   }
   .full-bleed-section-yellow {
@@ -54,5 +54,11 @@
   .section-divider {
     @apply border-b;
     @apply border-base-200;
+  }
+  .page-select {
+    @apply space-x-2;
+  }
+  .page-select .btn {
+    @apply rounded-md
   }
 }
