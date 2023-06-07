@@ -2,19 +2,15 @@ import { getBooks } from '@/lib/airtable';
 import { Book } from '@/types/types';
 import Thumbnail from '@/components/thumbnail';
 
-type PageProps = {
-  products: Array<Book>,
-  currentPage: number,
-  totalProducts: number,
-}
-
 type BookProps = {
   bookData: Array<Book>
 }
 
+export const per_page=10;
+
 const ProductGrid = ({ bookData }: BookProps) => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-4 gap-8">
+    <div className="grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-4 gap-8 mb-10">
       {bookData.map((book:Book) => <Thumbnail key={book.id} {...book} />)}
     </div>
   )
@@ -28,6 +24,14 @@ export default function Page({ data } : { data: Array<Book> }) {
         <>
           { data ? (<ProductGrid bookData={data} />) : (<p>Error Loading Data</p>) }
         </>
+        <div className="text-center">
+          <div className="join page-select">
+            <button className="join-item btn btn-active ">1</button>
+            <button className="join-item btn">2</button>
+            <button className="join-item btn">3</button>
+            <button className="join-item btn">4</button>
+          </div>
+        </div>
       </div>
     </section>
   )
