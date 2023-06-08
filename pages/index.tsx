@@ -24,7 +24,7 @@ export default function Home({ data } : { data: Array<Book>}) {
               )}
           </div>
           <div className="text-center">
-            <Link href="/products">
+            <Link href="/view-products">
               <button className="btn">See All Books</button>
             </Link>
           </div>
