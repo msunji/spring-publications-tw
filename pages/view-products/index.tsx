@@ -1,12 +1,27 @@
+import { useState } from 'react';
 import { getBooks } from '@/lib/airtable';
 import { Book } from '@/types/types';
 import Thumbnail from '@/components/thumbnail';
+import Link from 'next/link';
 
 type BookProps = {
   bookData: Array<Book>
 }
 
+type PageProps = {
+  products: Array<Book>,
+  currentPage: number,
+  totalProducts: number,
+  pageLimit: number,
+}
+
 export const per_page=10;
+
+const Paginated = ({ products, currentPage, totalProducts, pageLimit } : PageProps) => {
+  return (
+    <div>test</div>
+  )
+}
 
 const ProductGrid = ({ bookData }: BookProps) => {
   return (
@@ -17,6 +32,13 @@ const ProductGrid = ({ bookData }: BookProps) => {
 }
 
 export default function Page({ data } : { data: Array<Book> }) {
+  const [currPage, setCurrPage] = useState(1);
+  const maxProducts = 10;
+  const numProducts = data.length;
+  const numPages = Math.ceil(numProducts / maxProducts);
+  console.log(numPages);
+
+
   return (
     <section>
       <div className="container mx-auto">
@@ -26,10 +48,10 @@ export default function Page({ data } : { data: Array<Book> }) {
         </>
         <div className="text-center">
           <div className="join page-select">
-            <button className="join-item btn btn-active ">1</button>
-            <button className="join-item btn">2</button>
-            <button className="join-item btn">3</button>
-            <button className="join-item btn">4</button>
+            <Link href={`/view-products?=page=1`}><button className="join-item btn btn-active ">1</button></Link>
+            <Link href={`/view-products?=page=2`}><button className="join-item btn">2</button></Link>
+            <Link href={`/view-products?=page=3`}><button className="join-item btn">3</button></Link>
+            <Link href={`/view-products?=page=4`}><button className="join-item btn">4</button></Link>
           </div>
         </div>
       </div>
