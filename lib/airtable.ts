@@ -11,7 +11,6 @@ function getFieldData(record:any = {}) {
   const title:string = record.get("Title");
   const author:string = record.get("Author");
   const quantity:number = record.get("Quantity");
-  const categories:Array<string> = record.get("Categories");
   const thumbnail:Array<Thumbnail> = record.get("Thumbnail");
   const price:number = record.get("Price");
   const desc:string = record.get("Description");
@@ -21,7 +20,6 @@ function getFieldData(record:any = {}) {
     title,
     author,
     quantity,
-    categories,
     thumbnail,
     price,
     desc
@@ -30,13 +28,15 @@ function getFieldData(record:any = {}) {
   return book;
 }
 
-export function getBooks(baseName:string, filterName:string) {
+export function getBooks(baseName:string, filterName:string, maxBooks:number) {
   const base = initAirtable();
   const inventory:Array<any> = [];
+
   return new Promise<Array<any>>((resolve, reject) => {
     base(baseName)
       .select({
-        fields: ["Title", "Author", "Quantity", "Categories", "Thumbnail", "Price", "Description"],
+        maxRecords: maxBooks,
+        fields: ["Title", "Author", "Quantity", "Thumbnail", "Price", "Description"],
         filterByFormula: filterName,
       })
       .eachPage(
@@ -69,4 +69,43 @@ export function getBookId(id:string) {
         return resolve(book);
       })
   })
+}
+
+type pagesParams = {
+  baseLabel: string,
+  filter: string,
+  pageLimit: number,
+  page: number
+}
+
+export function getPages(pagesParams : pagesParams) {
+  const { baseLabel, filter, pageLimit, page} = pagesParams;
+
+  const base = initAirtable();
+  const inventory:Array<{}> = [];
+
+  return new Promise<Array<any>>((resolve, reject) => {
+    base(baseLabel)
+      .select({
+        fields: ["Title", "Author", "Quantity", "Thumbnail", "Price", "Description"],
+        filterByFormula: filter,
+      })
+      .eachPage(
+        function page(records:Array<{}>, fetchNextPage: () =>{}) {
+          records.forEach((record:any = {}) => {
+            const book = getFieldData(record);
+            inventory.push(book);
+          });
+          fetchNextPage();
+        }, function done(err:string) {
+          if (err) {
+            console.error(err);
+            return;
+          }
+          const totalPages = inventory.length / pageLimit;
+          const startIdx = (page - 1) * pageLimit;
+          const paginatedInventory = inventory.slice(startIdx, startIdx + pageLimit)
+          return resolve(paginatedInventory);
+      });
+  });
 }
