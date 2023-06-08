@@ -8,14 +8,14 @@ import Link from 'next/link';
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({ data } : { data: Array<Book>}) {
-  const featuredBooks = data.filter(book => {
-    if (book.categories) {
-      return book.categories.includes("Featured")
-    }
-  });
+  // const featuredBooks = data.filter(book => {
+  //   if (book.categories) {
+  //     return book.categories.includes("Featured")
+  //   }
+  // });
   return (
     <>
-      <Featured featuredList={featuredBooks}/>
+      {/* <Featured featuredList={featuredBooks}/> */}
       <section>
         <div className="container mx-auto">
           <div className="divider mb-20"><h1 className="text-center text-3xl">我們的商品</h1></div>
@@ -36,7 +36,7 @@ export default function Home({ data } : { data: Array<Book>}) {
 
 export async function getServerSideProps() {
   try {
-    const res = await getBooks("Product List", "{Publish} = 1");
+    const res = await getBooks("Product List", "{Publish} = 1", 8);
     const data = JSON.parse(JSON.stringify(res));
     return {
       props: {
