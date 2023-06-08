@@ -84,7 +84,7 @@ export function getPages(pagesParams : pagesParams) {
   const base = initAirtable();
   const inventory:Array<{}> = [];
 
-  return new Promise<Array<any>>((resolve, reject) => {
+  return new Promise<{}>((resolve, reject) => {
     base(baseLabel)
       .select({
         fields: ["Title", "Author", "Quantity", "Thumbnail", "Price", "Description"],
@@ -102,10 +102,13 @@ export function getPages(pagesParams : pagesParams) {
             console.error(err);
             return;
           }
-          const totalPages = inventory.length / pageLimit;
           const startIdx = (page - 1) * pageLimit;
           const paginatedInventory = inventory.slice(startIdx, startIdx + pageLimit)
-          return resolve(paginatedInventory);
+
+          return resolve({
+            total: inventory.length,
+            paginatedData: paginatedInventory
+          })
       });
   });
 }
