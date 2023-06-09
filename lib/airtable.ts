@@ -112,3 +112,43 @@ export function getPages(pagesParams : pagesParams) {
       });
   });
 }
+
+export function getHero() {
+  const base = initAirtable();
+  const heroData:Array<{}> = [];
+
+  return new Promise<{}>((resolve, reject) => {
+    base("Hero")
+      .select({
+        maxRecords: 1,
+        fields: ["Header","Subtitle", "Image", "Link"]
+      })
+      .eachPage(
+        function page(records:Array<{}>, fetchNextPage: () =>{}) {
+          records.forEach((record:any = {}) => {
+            const id:string = record.getId();
+            const header:string = record.get("Header");
+            const subtitle:string = record.get("Subtitle");
+            const image:Array<Thumbnail> = record.get("Image");
+            const link:string = record.get("Link");
+
+            const content = {
+              id,
+              header,
+              subtitle,
+              image,
+              link
+            }
+
+            heroData.push(content);
+          });
+          fetchNextPage();
+        }, function done(err:string) {
+          if (err) {
+            console.error(err);
+            return;
+          }
+          return resolve(heroData)
+      });
+  });
+}
