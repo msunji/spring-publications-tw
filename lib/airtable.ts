@@ -1,5 +1,5 @@
 const Airtable = require("airtable");
-import { Thumbnail, Book } from '@/types/types';
+import { Thumbnail, Book, HeroType } from '@/types/types';
 
 function initAirtable() {
   const base = new Airtable({ apiKey:process.env.AIRTABLE_TOKEN }).base(process.env.AIRTABLE_BASE_ID);
@@ -115,7 +115,7 @@ export function getPages(pagesParams : pagesParams) {
 
 export function getHero() {
   const base = initAirtable();
-  const heroData:Array<{}> = [];
+  let heroData:HeroType;
 
   return new Promise<{}>((resolve, reject) => {
     base("Hero")
@@ -132,15 +132,13 @@ export function getHero() {
             const image:Array<Thumbnail> = record.get("Image");
             const link:string = record.get("Link");
 
-            const content = {
+            heroData = {
               id,
               header,
               subtitle,
               image,
               link
             }
-
-            heroData.push(content);
           });
           fetchNextPage();
         }, function done(err:string) {
