@@ -35,3 +35,11 @@ export type Book = {
   price: number;
   desc?: string;
 }
+
+export type Hero = {
+  id: string;
+  header: string;
+  subtitle: string;
+  image: Array<Thumbnail>;
+  link: string;
+}
