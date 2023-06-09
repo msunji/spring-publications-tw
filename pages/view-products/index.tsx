@@ -10,20 +10,6 @@ export default function Page({ data, currentPage } : { data: {
 }, currentPage:number}) {
 
   const {total, paginatedData} = data;
-  // const [currPage, setCurrPage] = useState(1);
-  // const maxProducts = 8;
-  // const numProducts = data.length;
-  // const numPages = Math.ceil(numProducts / maxProducts);
-
-  // const onSetPage = (pageNum:number) => {
-  //   setCurrPage(pageNum);
-  // }
-
-  // const paginateData = (dataArr:Array<Book>, currPageNum:number, pageLimit:number) => {
-  //   if (dataArr.length === 0) return [];
-  //   const startIdx = (currPageNum - 1) * pageLimit;
-  //   return dataArr.slice(startIdx, startIdx + pageLimit)
-  // }
 
   return (
     <section>
