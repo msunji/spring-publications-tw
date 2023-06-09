@@ -2,7 +2,7 @@ import { getBooks } from '@/lib/airtable'
 import { Book } from '@/types/types'
 import { Inter } from 'next/font/google'
 import Thumbnail from '@/components/thumbnail';
-import Featured from '@/components/featured';
+import Hero from '@/components/hero';
 import Link from 'next/link';
 
 const inter = Inter({ subsets: ['latin'] })
@@ -15,7 +15,7 @@ export default function Home({ data } : { data: Array<Book>}) {
   // });
   return (
     <>
-      {/* <Featured featuredList={featuredBooks}/> */}
+      <Hero />
       <section>
         <div className="container mx-auto">
           <div className="divider mb-20"><h1 className="text-center text-3xl">我們的商品</h1></div>
