@@ -59,7 +59,7 @@ export default function Page({ data } : { data:Book }) {
               <p className="text-lightGreyBlue mb-5">作者: {author}</p>
               <p className="text-lg font-semibold text-primary">NT$ {price}</p>
             </div>
-            <div className="flex flex-wrap items-end gap-5">
+            {/* <div className="flex flex-wrap items-end gap-5">
               <div className="form-control">
                 <div className="qty-input grow">
                   <label htmlFor="qty-input-number" className="font-semibold">數量</label>
@@ -77,7 +77,7 @@ export default function Page({ data } : { data:Book }) {
               <div className="grow">
                 <button className="btn btn-secondary btn-block">Add to Cart</button>
               </div>
-            </div>
+            </div> */}
             <div className="divider" />
             <div>
               <p className="text-sm mb-5 text-lightGreyBlue">內容簡介</p>
