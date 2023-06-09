@@ -36,7 +36,7 @@ export type Book = {
   desc?: string;
 }
 
-export type Hero = {
+export type HeroType = {
   id: string;
   header: string;
   subtitle: string;
