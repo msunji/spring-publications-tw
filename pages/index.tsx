@@ -15,9 +15,7 @@ export default function Home({ data, heroContent } : { data: Array<Book>, heroCo
       <section>
         <div className="container mx-auto">
           <div className="divider mb-20"><h1 className="text-center text-3xl">我們的商品</h1></div>
-          <div className="mb-20 grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-4 gap-8">
-            <ProductGrid productData={data} />
-          </div>
+          <ProductGrid productData={data} />
           <div className="text-center">
             <Link href="/view-products">
               <button className="btn">See All Books</button>
