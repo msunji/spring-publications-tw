@@ -5,10 +5,15 @@ import { getBookId } from '@/lib/airtable';
 import { Book } from '@/types/types';
  
 export default function Page({ data } : { data:Book }) {
-  const { title, author, price, thumbnail, desc } = data;
+  const { title, author, price, desc } = data;
   const [qty, setQty] = useState(1);
 
-  const placeholderImg = "/images/PlaceholderCover.jpg";
+  let thumbnailSrc;
+   if (data.thumbnail) {
+    thumbnailSrc = data.thumbnail;
+  } else {
+    thumbnailSrc = "/images/PlaceholderCover.jpg";
+  }
 
   const incrementQty = () => {
     setQty(qty+1);
@@ -41,7 +46,7 @@ export default function Page({ data } : { data:Book }) {
           <div>
             <Image
                 className="mb-2"
-                src={thumbnail ? thumbnail : placeholderImg}
+                src={thumbnailSrc}
                 width={450}
                 height={650}
                 style={{objectFit: "cover"}}
