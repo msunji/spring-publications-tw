@@ -5,9 +5,9 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "v5.airtableusercontent.com",
+        hostname: "res.cloudinary.com",
         port: "",
-        pathname: "/v1/18/18/**/**"
+        pathname: "/dxzcdb0pm/image/**"
       }
     ]
   }
