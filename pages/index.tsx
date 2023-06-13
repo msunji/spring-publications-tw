@@ -1,7 +1,6 @@
 import { getBooks, getHero } from '@/lib/airtable'
 import { Book, HeroType } from '@/types/types'
 import { Inter } from 'next/font/google'
-import Thumbnail from '@/components/thumbnail';
 import Hero from '@/components/hero';
 import Link from 'next/link';
 import ProductGrid from '@/components/productGrid';
