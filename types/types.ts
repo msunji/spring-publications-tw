@@ -31,7 +31,7 @@ export type Book = {
   author: string;
   quantity: number;
   categories?: Array<string>;
-  thumbnail: string;
+  thumbnail?: string;
   price: number;
   desc?: string;
 }
@@ -40,6 +40,6 @@ export type HeroType = {
   id: string;
   header: string;
   subtitle: string;
-  image: string;
+  image?: string;
   link: string;
 }
