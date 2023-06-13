@@ -1,5 +1,5 @@
 const Airtable = require("airtable");
-import { Thumbnail, Book, HeroType } from '@/types/types';
+import { Book, HeroType } from '@/types/types';
 
 function initAirtable() {
   const base = new Airtable({ apiKey:process.env.AIRTABLE_TOKEN }).base(process.env.AIRTABLE_BASE_ID);
@@ -11,7 +11,7 @@ function getFieldData(record:any = {}) {
   const title:string = record.get("Title");
   const author:string = record.get("Author");
   const quantity:number = record.get("Quantity");
-  const thumbnail:Array<Thumbnail> = record.get("Thumbnail");
+  const thumbnail:string = record.get("CloudinaryUrl");
   const price:number = record.get("Price");
   const desc:string = record.get("Description");
 
@@ -36,7 +36,7 @@ export function getBooks(baseName:string, filterName:string, maxBooks:number) {
     base(baseName)
       .select({
         maxRecords: maxBooks,
-        fields: ["Title", "Author", "Quantity", "Thumbnail", "Price", "Description"],
+        fields: ["Title", "Author", "Quantity", "CloudinaryUrl", "Price", "Description"],
         filterByFormula: filterName,
       })
       .eachPage(
@@ -87,7 +87,7 @@ export function getPages(pagesParams : pagesParams) {
   return new Promise<{}>((resolve, reject) => {
     base(baseLabel)
       .select({
-        fields: ["Title", "Author", "Quantity", "Thumbnail", "Price", "Description"],
+        fields: ["Title", "Author", "Quantity", "CloudinaryUrl", "Price", "Description"],
         filterByFormula: filter,
       })
       .eachPage(
@@ -121,7 +121,7 @@ export function getHero() {
     base("Hero")
       .select({
         maxRecords: 1,
-        fields: ["Header","Subtitle", "Image", "Link"]
+        fields: ["Header","Subtitle", "CloudinaryUrl", "Link"]
       })
       .eachPage(
         function page(records:Array<{}>, fetchNextPage: () =>{}) {
@@ -129,7 +129,7 @@ export function getHero() {
             const id:string = record.getId();
             const header:string = record.get("Header");
             const subtitle:string = record.get("Subtitle");
-            const image:Array<Thumbnail> = record.get("Image");
+            const image:string = record.get("CloudinaryUrl");
             const link:string = record.get("Link");
 
             heroData = {
