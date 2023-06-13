@@ -7,7 +7,7 @@ const nextConfig = {
         protocol: "https",
         hostname: "v5.airtableusercontent.com",
         port: "",
-        pathname: "/v1/17/17/**/**"
+        pathname: "/v1/18/18/**/**"
       }
     ]
   }
