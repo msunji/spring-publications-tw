@@ -43,3 +43,11 @@ export type HeroType = {
   image?: string;
   link: string;
 }
+
+export type CartItemType = {
+  id: string;
+  title: string;
+  author: string;
+  price: number;
+  quantity: number;
+}
