@@ -24,13 +24,13 @@ export default function Navbar() {
             <li><Link href="/contact">聯絡我們</Link></li>
             </ul>
         </div>
-        {/* <div className="navbar-end">
+        <div className="navbar-end">
           <Link href="/cart">
             <div>
               購物車<div className="badge badge-accent ml-2">0</div>
             </div>
           </Link>
-        </div> */}
+        </div>
       </nav>
     </div>
   )
