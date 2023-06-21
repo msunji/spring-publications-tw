@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { devtools, persist, createJSONStorage } from "zustand/middleware";
 import { CartItemType } from '@/types/types';
 
 // Set types
@@ -36,60 +37,69 @@ const getTotalCost = (cart:Array<CartItemType>) => {
 }
 
 // Create cart store
-export const useCartStore = create<CartState & CartActions>()((set) => ({
-  ...initialState,
-  addToCart: (cartItem:CartItemType) => {
-    set((state) => {
-      const cart = [...state.cart];
-      const existingItemIdx = cart.findIndex(item => item.id === cartItem.id);
-      if (existingItemIdx !== -1) {
-        cart[existingItemIdx].quantity++;
-      } else {
-        cart.push(cartItem)
+export const useCartStore = create<CartState & CartActions>()(
+  devtools(
+    persist(
+      (set) => ({
+        ...initialState,
+        addToCart: (cartItem:CartItemType) => {
+          set((state) => {
+            const cart = [...state.cart];
+            const existingItemIdx = cart.findIndex(item => item.id === cartItem.id);
+            if (existingItemIdx !== -1) {
+              cart[existingItemIdx].quantity++;
+            } else {
+              cart.push(cartItem)
+            }
+            return {
+              cart,
+              totalItems: getTotalItems(cart),
+              totalCost: getTotalCost(cart)
+            }
+          })
+        },
+        removeFromCart: (cartItemId:string) => {
+          set((state) => {
+            const cart = [...state.cart];
+            const itemToRemoveIdx = cart.findIndex(item => item.id === cartItemId);
+            if (itemToRemoveIdx !== -1) {
+              cart.splice(itemToRemoveIdx, 1);
+            }
+            return {
+              cart,
+              totalItems: getTotalItems(cart),
+              totalCost: getTotalCost(cart)
+            }
+          })
+        },
+        updateQty: (cartItemId: string, updateType: "inc" | "dec") => {
+          set((state) => {
+            const cart = [...state.cart];
+            const itemIdx = cart.findIndex(item => item.id === cartItemId);
+            if (itemIdx !== -1) {
+              if (updateType === "inc") {
+                cart[itemIdx].quantity += 1;
+              } else {
+                cart[itemIdx].quantity -= 1;
+                if (cart[itemIdx].quantity === 0) {
+                  cart.splice(itemIdx, 1)
+                }
+              }
+            }
+            return {
+              cart,
+              totalItems: getTotalItems(cart),
+              totalCost: getTotalCost(cart)
+            }
+          })
+        },
+        clearCart: () => {
+          set(initialState)
+        },
+      }),
+      {
+        name: 'cart-storage',
+        storage: createJSONStorage(() => sessionStorage)
       }
-      return {
-        cart,
-        totalItems: getTotalItems(cart),
-        totalCost: getTotalCost(cart)
-      }
-    })
-  },
-  removeFromCart: (cartItemId:string) => {
-    set((state) => {
-      const cart = [...state.cart];
-      const itemToRemoveIdx = cart.findIndex(item => item.id === cartItemId);
-      if (itemToRemoveIdx !== -1) {
-        cart.splice(itemToRemoveIdx, 1);
-      }
-      return {
-        cart,
-        totalItems: getTotalItems(cart),
-        totalCost: getTotalCost(cart)
-      }
-    })
-  },
-  updateQty: (cartItemId: string, updateType: "inc" | "dec") => {
-    set((state) => {
-      const cart = [...state.cart];
-      const itemIdx = cart.findIndex(item => item.id === cartItemId);
-      if (itemIdx !== -1) {
-        if (updateType === "inc") {
-          cart[itemIdx].quantity += 1;
-        } else {
-          cart[itemIdx].quantity -= 1;
-          if (cart[itemIdx].quantity === 0) {
-            cart.splice(itemIdx, 1)
-          }
-        }
-      }
-      return {
-        cart,
-        totalItems: getTotalItems(cart),
-        totalCost: getTotalCost(cart)
-      }
-    })
-  },
-  clearCart: () => {
-    set(initialState)
-  },
-}));
+  )
+));
