@@ -41,7 +41,7 @@
 }
 
 @layer components {
-  .btn:not(.page-select .btn) {
+  .btn:not(.page-select .btn, .qty-btn) {
     @apply rounded-lg;
   }
   .full-bleed-section-yellow {
