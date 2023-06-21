@@ -11,6 +11,13 @@ type CartActions = {
   addToCart: (cartItem:CartItemType) => any;
   removeFromCart: (cartItemId:string) => any;
   clearCart: () => void;
+  updateQty: (updateType:string) => any;
+}
+
+const initialState:CartState = {
+  cart: [],
+  totalItems: 0,
+  totalCost: 0
 }
 
 const getTotalItems = (cart:Array<CartItemType>) => {
@@ -26,9 +33,7 @@ const getTotalCost = (cart:Array<CartItemType>) => {
 }
 
 export const useCartStore = create<CartState & CartActions>()((set) => ({
-  cart: [],
-  totalCost: 0,
-  totalItems: 0,
+  ...initialState,
   addToCart: (cartItem:CartItemType) => {
     set((state) => {
       const cart = [...state.cart];
@@ -60,7 +65,10 @@ export const useCartStore = create<CartState & CartActions>()((set) => ({
       }
     })
   },
-  clearCart: () => set({ cart: [] })
+  clearCart: () => {
+    set(initialState)
+  },
+  updateQty: (updateType:string) => set()
   // addItem
   // decreaseItem
 }));
