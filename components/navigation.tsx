@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { useCartStore } from '@/store/store';
 
 export default function Navbar() {
+  const totalItems = useCartStore(state => state.totalItems);
   return (
     <div className="bg-darkBlue text-white">
       <nav className="navbar container py-2 justify-between">
@@ -27,7 +29,7 @@ export default function Navbar() {
         <div className="navbar-end">
           <Link href="/cart">
             <div>
-              購物車<div className="badge badge-accent ml-2">0</div>
+              購物車<div className="badge badge-accent ml-2">{totalItems}</div>
             </div>
           </Link>
         </div>
