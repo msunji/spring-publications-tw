@@ -17,8 +17,8 @@ module.exports = {
         DEFAULT: "2rem",
         sm: "4rem",
         lg: "6rem",
-        xl: "8rem",
-        '2xl': "6rem",
+        xl: "10rem",
+        '2xl': "10rem",
       }
     },
     extend: {
