@@ -4,7 +4,6 @@ import { CartItemType } from '@/types/types';
 type CartState = {
   cart: Array<CartItemType>;
   totalItems: number;
-  // totalCost: () => number;
   totalCost: number;
 }
 
@@ -14,7 +13,19 @@ type CartActions = {
   clearCart: () => void;
 }
 
-export const useCartStore = create<CartState & CartActions>()((set, get) => ({
+const getTotalItems = (cart:Array<CartItemType>) => {
+  return cart.reduce((prev, curr) => prev + curr.quantity, 0);
+}
+
+const getTotalCost = (cart:Array<CartItemType>) => {
+  return cart
+  .map(item => {
+    return item.quantity * item.price
+  })
+  .reduce((prev, curr) => prev + curr, 0);
+}
+
+export const useCartStore = create<CartState & CartActions>()((set) => ({
   cart: [],
   totalCost: 0,
   totalItems: 0,
@@ -27,10 +38,10 @@ export const useCartStore = create<CartState & CartActions>()((set, get) => ({
       } else {
         cart.push(cartItem)
       }
-      const updatedTotalItems = cart.reduce((prev, curr) => prev + curr.quantity, 0);
       return {
         cart,
-        totalItems: updatedTotalItems
+        totalItems: getTotalItems(cart),
+        totalCost: getTotalCost(cart)
       }
     })
   },
@@ -44,7 +55,8 @@ export const useCartStore = create<CartState & CartActions>()((set, get) => ({
       const updatedTotalItems = cart.reduce((prev, curr) => prev + curr.quantity, 0);
       return {
         cart,
-        totalItems: updatedTotalItems
+        totalItems: getTotalItems(cart),
+        totalCost: getTotalCost(cart)
       }
     })
   },
