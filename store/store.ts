@@ -8,7 +8,6 @@ type CartState = {
   totalItems: number;
   totalCost: number;
 }
-
 type CartActions = {
   addToCart: (cartItem:CartItemType) => any;
   removeFromCart: (cartItemId:string) => any;
@@ -99,7 +98,7 @@ export const useCartStore = create<CartState & CartActions>()(
       }),
       {
         name: 'cart-storage',
-        storage: createJSONStorage(() => sessionStorage)
+        storage: createJSONStorage(() => localStorage)
       }
   )
 ));
