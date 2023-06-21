@@ -4,7 +4,6 @@ import { Inter } from 'next/font/google'
 import Hero from '@/components/hero';
 import Link from 'next/link';
 import ProductGrid from '@/components/productGrid';
-
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({ data, heroContent } : { data: Array<Book>, heroContent: HeroType }) {
