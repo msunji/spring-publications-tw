@@ -3,9 +3,14 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getBookId } from '@/lib/airtable';
 import { Book } from '@/types/types';
- 
+import { useCartStore } from '@/store/store';
+import { CartItemType } from '@/types/types';
+
+
 export default function Page({ data } : { data:Book }) {
-  const { title, author, price, desc } = data;
+  const cart = useCartStore(state => state.cart);
+  const addToCart = useCartStore(state => state.addToCart);
+  const { id, title, author, price, desc } = data;
   const [qty, setQty] = useState(1);
 
   let thumbnailSrc;
@@ -27,6 +32,17 @@ export default function Page({ data } : { data:Book }) {
     if (val < 0) return e.preventDefault();
     setQty(val);
   }
+
+  const cartItem:CartItemType = {
+    id,
+    title,
+    author,
+    price,
+    thumbnailSrc,
+    quantity: qty
+  }
+
+  console.log(cart);
 
   return (
     <section>
@@ -58,25 +74,25 @@ export default function Page({ data } : { data:Book }) {
               <p className="text-lightGreyBlue mb-5">作者: {author}</p>
               <p className="text-lg font-semibold text-primary">NT$ {price}</p>
             </div>
-            {/* <div className="flex flex-wrap items-end gap-5">
+            <div className="flex flex-wrap items-end gap-5">
               <div className="form-control">
                 <div className="qty-input grow">
                   <label htmlFor="qty-input-number" className="font-semibold">數量</label>
                   <div className="flex flex-row relative">
-                    <button data-action="decrement" className="btn rounded-l-l rounded-r-none w-10" onClick={decrementQty}>
+                    <button data-action="decrement" className="btn qty-btn rounded-e-none rounded-l-lg w-10" onClick={decrementQty}>
                       <span className="m-auto text-3xl font-thin">-</span>
                     </button>
                     <input type="number" placeholder="1" value={qty} onChange={handleQtyChange} name="qty-input-number" className="input input-bordered font-semibold text-center rounded-none focus:outline-none w-16" />
-                    <button data-action="increment" className="btn rounded-l-none rounded-r-lg w-10" onClick={incrementQty}>
+                    <button data-action="increment" className="btn qty-btn rounded-l-none rounded-r-lg w-10" onClick={incrementQty}>
                       <span className="m-auto text-3xl font-thin">+</span>
                     </button>
                   </div>
                 </div>
               </div>
               <div className="grow">
-                <button className="btn btn-secondary btn-block">Add to Cart</button>
+                <button className="btn btn-secondary btn-block" onClick={() => addToCart(cartItem)}>Add to Cart</button>
               </div>
-            </div> */}
+            </div>
             <div className="divider" />
             <div>
               <p className="text-sm mb-5 text-lightGreyBlue">內容簡介</p>
