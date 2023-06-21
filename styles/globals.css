@@ -38,6 +38,9 @@
     -webkit-appearance: none;
     margin: 0;
   }
+  small {
+    @apply text-[0.92em];
+  }
 }
 
 @layer components {
