@@ -10,7 +10,7 @@ export default function Home({ data, heroContent } : { data: Array<Book>, heroCo
       <Hero content={heroContent}/>
       <section>
         <div className="container mx-auto">
-          <div className="divider mb-20"><h1 className="text-center text-3xl">我們的商品</h1></div>
+          <div className="divider mb-20 flex"><h1 className="text-center mb-0">我們的商品</h1></div>
           <ProductGrid productData={data} />
           <div className="text-center">
             <Link href="/view-products">
