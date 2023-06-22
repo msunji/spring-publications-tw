@@ -52,6 +52,12 @@
 }
 
 @layer components {
+  .container-lg {
+    @apply max-w-screen-xl mx-auto;
+  }
+  .container {
+    @apply max-w-screen-lg;
+  }
   .btn:not(nav .btn, .page-select .btn, .qty-btn) {
     @apply rounded-lg;
   }
