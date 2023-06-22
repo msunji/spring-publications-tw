@@ -4,7 +4,6 @@ import { useCartStore } from '@/store/store';
 
 export default function Navbar() {
   const totalItems = useCartStore(state => state.totalItems);
-
   const [cartState, setCartState] = useState<number>();
 
   useEffect(() => {
@@ -13,7 +12,7 @@ export default function Navbar() {
 
   return (
     <div className="bg-darkBlue text-white">
-      <nav className="navbar container py-2 justify-between">
+      <nav className="navbar container-lg py-2 justify-between">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
