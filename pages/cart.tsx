@@ -43,7 +43,7 @@ export default function Page() {
       <section>
         <div className="container">
           <h1>Contact Details</h1>
-          <form className="max-w-[50%]">
+          <form className="max-w-full md:max-w-[50%]">
             <label className="block mb-2">
               <span className="block text-sm font-medium text-slate-700 mb-1">Full Name</span>
               <input type="text" value="Full Name" className="input input-bordered w-full rounded"/>
