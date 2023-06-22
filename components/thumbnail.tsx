@@ -12,7 +12,7 @@ export default function Thumbnail ({ ...props }: Book) {
  }
   return (
     <Link href={`/products/${id}`}>
-      <div className="transition-transform hover:scale-90">
+      <div className="transition-transform hover:scale-95">
         <Image
           className="mb-5"
           src={thumbnailSrc}
