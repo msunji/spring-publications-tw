@@ -1,10 +1,8 @@
 import { getBooks, getHero } from '@/lib/airtable'
 import { Book, HeroType } from '@/types/types'
-import { Inter } from 'next/font/google'
 import Hero from '@/components/hero';
 import Link from 'next/link';
 import ProductGrid from '@/components/productGrid';
-const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({ data, heroContent } : { data: Array<Book>, heroContent: HeroType }) {
   return (
@@ -16,7 +14,7 @@ export default function Home({ data, heroContent } : { data: Array<Book>, heroCo
           <ProductGrid productData={data} />
           <div className="text-center">
             <Link href="/view-products">
-              <button className="btn">See All Books</button>
+              <button className="btn btn-primary">See All Books</button>
             </Link>
           </div>
         </div>
