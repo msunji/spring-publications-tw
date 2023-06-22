@@ -47,7 +47,7 @@ export default function Page({ data } : { data:Book }) {
   return (
     <section>
       <div className="container">
-        <div className="text-sm breadcrumbs mb-5">
+        <div className="text-sm breadcrumbs mb-10">
           <ul>
             <li>
               <Link href="/">首頁</Link>
@@ -74,10 +74,10 @@ export default function Page({ data } : { data:Book }) {
               <p className="text-lightGreyBlue mb-5">作者: {author}</p>
               <p className="text-lg font-semibold text-primary">NT$ {price}</p>
             </div>
-            <div className="flex flex-wrap items-end gap-5">
+            <div className="flex flex-wrap items-end gap-5 border-b pb-8 border-base-200">
               <div className="form-control">
                 <div className="qty-input grow">
-                  <label htmlFor="qty-input-number" className="font-semibold">數量</label>
+                  <label htmlFor="qty-input-number" className="text-secondary mb-2 block">數量</label>
                   <div className="flex flex-row relative">
                     <button data-action="decrement" className="btn qty-btn rounded-e-none rounded-l-lg w-10" onClick={decrementQty}>
                       <span className="m-auto text-3xl font-thin">-</span>
@@ -90,10 +90,9 @@ export default function Page({ data } : { data:Book }) {
                 </div>
               </div>
               <div className="grow">
-                <button className="btn btn-secondary btn-block" onClick={() => addToCart(cartItem)}>Add to Cart</button>
+                <button className="btn btn-accent btn-block" onClick={() => addToCart(cartItem)}>加入購物車</button>
               </div>
             </div>
-            <div className="divider" />
             <div>
               <p className="text-sm mb-5 text-lightGreyBlue">內容簡介</p>
               <p className="text-lg">{desc}</p>
