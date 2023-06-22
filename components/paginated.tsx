@@ -31,7 +31,7 @@ export default function Paginated({ paginatedData, currPage, pageLimit, totalPro
             { Array.from({ length: totalPages }).map((_, i) => {
               return (
                 <Link href={`/view-products/${i+1}`} key={i+1}>
-                  <button key={i} className="btn bg-transparent border-1 border-base-200 rounded-none text-neutral text-lg join-item hover:text-white hover">{i+1}</button>
+                  <button key={i} className="btn bg-transparent border-1 border-base-200 rounded-none text-neutral text-lg join-item hover:text-white" disabled={i+1 === currPage ? true : false}>{i+1}</button>
                 </Link>
               )
             })}
