@@ -14,7 +14,6 @@ export default function Page({ data, currentPage } : { data: {
   return (
     <section>
       <div className="container mx-auto">
-        <h1>全部商品</h1>
         <div>
           { data ? (<Paginated paginatedData={paginatedData} currPage={currentPage} pageLimit={8} totalProducts={total}/>): (<p>Error Loading Data</p>) }
         </div>
