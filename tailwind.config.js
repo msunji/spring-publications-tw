@@ -7,6 +7,7 @@ module.exports = {
   ],
   theme: {
     colors: {
+      offWhite: "#ebe6de",
       lightGreyBlue: "#7d8c92",
       darkBlue: "#1c293c",
       white: "#fff"
@@ -15,10 +16,10 @@ module.exports = {
       center: true,
       padding: {
         DEFAULT: "2rem",
-        sm: "6rem",
-        lg: "8rem",
-        xl: "12rem",
-        '2xl': "12rem",
+        sm: "4rem",
+        lg: "10rem",
+        xl: "18rem",
+        '2xl': "18rem",
       }
     },
     extend: {
