@@ -16,8 +16,8 @@ export default function Thumbnail ({ ...props }: Book) {
         <Image
           className="mb-5"
           src={thumbnailSrc}
-          width={450}
-          height={650}
+          width={300}
+          height={400}
           style={{objectFit: "cover"}}
           alt={`Cover for ${title}`} />
         <p className="font-bold text-xl">{ title }</p>
