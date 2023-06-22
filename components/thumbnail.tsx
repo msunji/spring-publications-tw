@@ -20,9 +20,13 @@ export default function Thumbnail ({ ...props }: Book) {
           height={400}
           style={{objectFit: "cover"}}
           alt={`Cover for ${title}`} />
-        <p className="font-bold text-xl">{ title }</p>
-        <p className="mb-3 text-neutral-400">{ author }</p>
-        <p className="text-lg font-semibold text-primary">${ price }</p>
+        <div className="flex justify-between gap-2">
+          <div>
+            <p className="text-secondary text-sm">{ author }</p>
+            <p className="font-bold text-xl">{ title }</p>
+          </div>
+          <p className="text-lg self-end">${ price }</p>
+        </div>
       </div>
     </Link>
   )
