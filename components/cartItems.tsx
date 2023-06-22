@@ -12,7 +12,7 @@ export function CartItems() {
     <div>
       {
         cartItems.map(({id, title, price, quantity, author, thumbnailSrc }) => (
-          <div key={id} className="flex py-4 border-b border-base-200 justify-between">
+          <div key={id} className="flex py-4 border-b border-base-200 justify-between last:border-none">
             <div>
               <Image 
                 src={thumbnailSrc} 

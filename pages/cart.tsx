@@ -3,8 +3,22 @@ import { CartItemType } from '@/types/types';
 import { useCartStore } from '@/store/store';
 import { CartItems } from '@/components/cartItems';
 import Link from 'next/link';
+import Image from 'next/image';
 
-const emptyCart = () => {}
+const EmptyCart = () => {
+  return (
+    <div className="flex flex-col items-center my-8">
+      <Image
+      src="/images/empty-cart.svg"
+      width={240}
+      height={240}
+      alt="Illustration of person with empty cart"
+      className="mb-6"
+      />
+      <h2>你的購物車是空的</h2>
+    </div>
+  )
+}
 
 export default function Page() {
   const { cart, totalItems, totalCost, clearCart } = useCartStore();
@@ -26,11 +40,11 @@ export default function Page() {
           <div>
             <div>
               {
-                cartState?.length ? (<CartItems />) : (<div>Cart is Empty</div>)
+                cartState?.length ? (<CartItems />) : (<EmptyCart />)
               }
             </div>
           </div>
-          <div className=" border-base-200 py-5 justify-end flex">
+          <div className=" border-base-200 py-5 justify-end flex border-t border-base-400">
             <div>
               <p className="text-right text-lg">
                 <span className="mr-5 text-xl"><b>Subtotal</b></span> NT${totalCost}.00<br />
