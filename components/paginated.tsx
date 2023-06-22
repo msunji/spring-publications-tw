@@ -12,7 +12,7 @@ type PaginatedProps = {
 const getNumProducts = (currPage:number, totalProducts:number, pageLimit:number) => {
   const start = (currPage - 1) * pageLimit + 1;
   const end = Math.min(start + pageLimit - 1, totalProducts);
-  return `您正在瀏覽第 ${start}-${end} 件商品`;
+  return `您正在瀏覽第${start}-${end}件商品`;
 }
 
 export default function Paginated({ paginatedData, currPage, pageLimit, totalProducts } : PaginatedProps) {
