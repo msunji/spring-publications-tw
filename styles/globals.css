@@ -4,13 +4,13 @@
 
 @layer base {
   body {
-    line-height: 1.7;
+    @apply bg-base-100 leading-relaxed;
   }
   h1, h2, h3 {
     @apply font-bold;
   }
   h1 {
-    @apply text-2xl;
+    @apply text-4xl;
   }
   h2 {
     @apply text-xl;
@@ -41,18 +41,25 @@
   small {
     @apply text-[0.92em];
   }
+  a:not(nav a, .product-grid a), 
+  a:visited:not(nav a) {
+    @apply underline underline-offset-4;
+  }
+  a:hover:not(nav a, .product-grid a), 
+  a:focus:not(nav a, .product-grid a) {
+    @apply text-accent no-underline
+  }
 }
 
 @layer components {
-  .btn:not(.page-select .btn, .qty-btn) {
+  .btn:not(nav .btn, .page-select .btn, .qty-btn) {
     @apply rounded-lg;
   }
   .text-content p {
     @apply mb-6;
   }
   .section-divider {
-    @apply border-b;
-    @apply border-base-200;
+    @apply border-b border-base-200;
   }
   .page-select {
     @apply space-x-2;
