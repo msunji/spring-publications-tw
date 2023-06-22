@@ -9,6 +9,12 @@ type PaginatedProps = {
   totalProducts: number,
 }
 
+const getNumProducts = (currPage:number, totalProducts:number, pageLimit:number) => {
+  const start = (currPage - 1) * pageLimit + 1;
+  const end = Math.min(start + pageLimit - 1, totalProducts);
+  return `您正在瀏覽第 ${start}-${end} 件商品`;
+}
+
 export default function Paginated({ paginatedData, currPage, pageLimit, totalProducts } : PaginatedProps) {
   const totalPages = Math.ceil(totalProducts / pageLimit);
 
@@ -16,7 +22,7 @@ export default function Paginated({ paginatedData, currPage, pageLimit, totalPro
     <div>
       <div className="mb-8">
         <h1>全部商品</h1>
-        <p>您正在瀏覽第 1-12 件 商品</p>
+        <p>{getNumProducts(currPage, totalProducts, pageLimit)}</p>
       </div>
 
       <ProductGrid productData={paginatedData} />
