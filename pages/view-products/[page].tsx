@@ -11,11 +11,15 @@ export default function Page({ data, currentPage } : { data: {
   console.log(currentPage);
 
   return (
-    <section>
-      <div className="container">
-        { data ? (<Paginated paginatedData={paginatedData} currPage={currentPage} pageLimit={8} totalProducts={total}/>) : (<p>Error loading data</p>)}
-      </div>
-    </section>
+    <>
+      <section>
+        <div className="container">
+          <div>
+            { data ? (<Paginated paginatedData={paginatedData} currPage={currentPage} pageLimit={8} totalProducts={total}/>) : (<p>Error loading data</p>)}
+          </div>
+        </div>
+      </section>
+    </>
   )
 }
 
