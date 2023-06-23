@@ -73,4 +73,7 @@
   .page-select .btn {
     @apply rounded-md
   }
+  .custom-hero-overlay {
+    @apply h-full w-full bg-[#082c43]/60;
+  }
 }

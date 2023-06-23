@@ -10,7 +10,7 @@ export default function Hero({ content }: HeroProps) {
 
   return (
     <div className={`hero min-h-full bg-cover`} style={{ backgroundImage: `url('${image}')`}}>
-      <div className="hero-overlay bg-opacity-65"></div>
+      <div className="custom-hero-overlay"></div>
       <div className="py-20 md:py-40 hero-content text-center text-white">
         <div className="max-w-md">
           <h1 className="mb-5 text-5xl font-bold">{header}</h1>
