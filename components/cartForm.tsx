@@ -83,7 +83,7 @@ const handleSubmit = (orderData:{cart: Array<CartItemType>, totalCost: number}) 
   console.log("form works", result.data);
 }
 
-export default function CartForm({ cartItems }: {cartItems: {}}) {
+export default function CartForm() {
   const [fullName, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const { cart, totalCost} = useCartStore();
