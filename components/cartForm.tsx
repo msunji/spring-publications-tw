@@ -2,11 +2,9 @@ import { useState } from "react";
 import { useCartStore } from '@/store/store';
 
 const generateOrderId = () => {
-  const typedArray = new Uint8Array(8);
-  const randomVals = window.crypto.getRandomValues(typedArray);
-  return randomVals.join('');
+  let randomVal = window.crypto.getRandomValues(new Uint32Array(10)).toString();
+  return randomVal.substring(1,7);
 }
-
 
 const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
