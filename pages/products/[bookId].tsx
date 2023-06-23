@@ -45,7 +45,7 @@ export default function Page({ data } : { data:Book }) {
   }
   const addProduct = (product:CartItemType) => {
     addToCart(product);
-    setStatus("加入成功");
+    setStatus("加入成功!");
     setTimeout(() => {
       setStatus("加入購物車")
     }, 3000);
@@ -97,7 +97,7 @@ export default function Page({ data } : { data:Book }) {
                 </div>
               </div>
               <div className="grow">
-                <button className="btn btn-primary btn-block" onClick={() => addProduct(cartItem)}><span className="text-lg">{status}</span></button>
+                <button className={`btn btn-block ${status === "加入成功!" ? "btn-success" : "btn-primary"}`} onClick={() => addProduct(cartItem)}><span className="text-lg">{status}</span></button>
               </div>
             </div>
             <div>
