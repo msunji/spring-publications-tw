@@ -12,12 +12,23 @@ export default function Page({ data } : { data:Book }) {
   const addToCart = useCartStore(state => state.addToCart);
   const { id, title, author, price, desc } = data;
   const [qty, setQty] = useState(1);
+  const [status, setStatus] = useState("加入購物車");
+  const [addCart, setAddCart] = useState(false);
 
   let thumbnailSrc;
    if (data.thumbnail) {
     thumbnailSrc = data.thumbnail;
   } else {
     thumbnailSrc = "/images/PlaceholderCover.jpg";
+  }
+
+  const cartItem:CartItemType = {
+    id,
+    title,
+    author,
+    price,
+    thumbnailSrc,
+    quantity: qty
   }
 
   const incrementQty = () => {
@@ -32,17 +43,13 @@ export default function Page({ data } : { data:Book }) {
     if (val < 0) return e.preventDefault();
     setQty(val);
   }
-
-  const cartItem:CartItemType = {
-    id,
-    title,
-    author,
-    price,
-    thumbnailSrc,
-    quantity: qty
+  const addProduct = (product:CartItemType) => {
+    addToCart(product);
+    setStatus("加入成功");
+    setTimeout(() => {
+      setStatus("加入購物車")
+    }, 3000);
   }
-
-  console.log(cart);
 
   return (
     <section>
@@ -79,18 +86,18 @@ export default function Page({ data } : { data:Book }) {
                 <div className="qty-input grow">
                   <label htmlFor="qty-input-number" className="text-secondary mb-2 block">數量</label>
                   <div className="flex flex-row relative">
-                    <button data-action="decrement" className="btn qty-btn rounded-e-none rounded-l-lg w-10" onClick={decrementQty}>
+                    <button data-action="decrement" className="btn qty-btn rounded-e-none rounded-l-lg w-8" onClick={decrementQty}>
                       <span className="m-auto text-3xl font-thin">-</span>
                     </button>
-                    <input type="number" placeholder="1" value={qty} onChange={handleQtyChange} name="qty-input-number" className="input input-bordered font-semibold text-center rounded-none focus:outline-none w-16" />
-                    <button data-action="increment" className="btn qty-btn rounded-l-none rounded-r-lg w-10" onClick={incrementQty}>
+                    <input type="number" placeholder="1" value={qty} onChange={handleQtyChange} name="qty-input-number" className="input input-bordered text-center rounded-none focus:outline-none w-14" />
+                    <button data-action="increment" className="btn qty-btn rounded-l-none rounded-r-lg w-8" onClick={incrementQty}>
                       <span className="m-auto text-3xl font-thin">+</span>
                     </button>
                   </div>
                 </div>
               </div>
               <div className="grow">
-                <button className="btn btn-accent btn-block" onClick={() => addToCart(cartItem)}>加入購物車</button>
+                <button className="btn btn-primary btn-block" onClick={() => addProduct(cartItem)}><span className="text-lg">{status}</span></button>
               </div>
             </div>
             <div>
