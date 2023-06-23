@@ -15,7 +15,7 @@ const handleSubmit = async (e: React.FormEvent) => {
   const data = {
     fullName: form.fullName.value as string,
     email: form.email.value as string,
-    orderId: generateOrderId();
+    orderId: generateOrderId()
   }
   let error;
   const { fullName, email } = data;
