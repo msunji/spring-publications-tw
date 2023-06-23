@@ -22,7 +22,7 @@ const EmptyCart = () => {
 }
 
 export default function Page() {
-  const { cart, totalItems, totalCost, clearCart } = useCartStore();
+  const { cart, totalCost, clearCart } = useCartStore();
 
   const [cartState, setCartState] = useState<CartItemType[]>();
 
@@ -39,11 +39,9 @@ export default function Page() {
             <Link href="/view-products">繼續購物</Link>
           </div>
           <div>
-            <div>
-              {
-                cartState?.length ? (<CartItems />) : (<EmptyCart />)
-              }
-            </div>
+            {
+              cartState?.length ? (<CartItems />) : (<EmptyCart />)
+            }
           </div>
           <div className=" border-base-200 py-5 justify-end flex border-t border-base-400">
             <div>
