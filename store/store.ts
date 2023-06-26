@@ -28,11 +28,13 @@ const getTotalItems = (cart:Array<CartItemType>) => {
 }
 
 const getTotalCost = (cart:Array<CartItemType>) => {
-  return cart
+  const subTotal = cart
   .map(item => {
     return item.quantity * item.price
   })
   .reduce((prev, curr) => prev + curr, 0);
+  // Add flat rate of 60NTD for shipping
+  return subTotal + 60;
 }
 
 // Create cart store
