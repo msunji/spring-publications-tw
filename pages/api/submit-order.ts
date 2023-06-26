@@ -16,7 +16,7 @@ type OrderData = {
   }
 }
 
-function sendMail(orderData : OrderData) {
+async function sendMail(orderData : OrderData) {
   sgMail.setApiKey(process.env.SENDGRID_API);
   const { data } = orderData;
   const msg = {
@@ -24,36 +24,23 @@ function sendMail(orderData : OrderData) {
     text: "Thank you for ordering from Spring Books Taiwan!",
     template_id: "d-8eb9a55a89e54d4eb8da1957044f3c86",
     html: "<p>Thank you for ordering from Spring Books Taiwan</p>",
+    to: data.email,
+    bcc: "mae.sunji@gmail.com",
     dynamic_template_data: {
       data: data
     },
-    personalizations: [
-      {
-        subject: "Spring Books Order Confirmation",
-        to: [
-          {
-            email: data.email
-          }
-        ],
-        bcc: [
-          {
-            email: "mae.sunji@gmail.com"
-          }
-        ]
-      }
-    ]
   }
   sgMail
     .send(msg)
     .then((res:NextApiResponse) => {
-      console.log("Message sent")
+      console.log("Message sent");
     })
     .catch((err:any) => {
       console.log(err)
     })
 }
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { fullName, email, orderId, cartDetails, total } = req.body;
   const totalWShipping = total + 60;
 
@@ -63,7 +50,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         data: "Customer details and cart details seem to be empty."
       })
     }
-    sendMail({ data: { fullName, email, orderId, cartDetails, totalWShipping } });
+    await sendMail({ data: { fullName, email, orderId, cartDetails, totalWShipping } });
     res.status(200).json({ data: { fullName, email, orderId, cartDetails, totalWShipping } });
   } catch (err) {
     res.status(500).send({ error: "Failed to fetch data" });
