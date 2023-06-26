@@ -30,14 +30,11 @@ async function sendMail(orderData : OrderData) {
       data: data
     },
   }
-  sgMail
-    .send(msg)
-    .then((res:NextApiResponse) => {
-      console.log("Message sent");
-    })
-    .catch((err:any) => {
-      console.log(err)
-    })
+  try {
+    await sgMail.send(msg);
+  } catch(err) {
+    console.error(err);
+  }
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
