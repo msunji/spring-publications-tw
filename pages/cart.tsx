@@ -29,9 +29,7 @@ export default function Page() {
   useEffect(() => {
     setCartState(cart);
   }, [cart])
-
-  console.log(totalCost);
-
+  
   return (
     <>
       <section className="section-divider">
