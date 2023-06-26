@@ -53,9 +53,9 @@ export default function CartForm() {
         "Content-Type": "application/json",
       }
     }).then(res => {
-      clearCart();
       if (res.status === 200) {
         router.replace("/thankyou");
+        clearCart();
       }
     }).catch(err => { console.error(err) })
   }
