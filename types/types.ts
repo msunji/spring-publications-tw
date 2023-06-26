@@ -52,3 +52,11 @@ export type CartItemType = {
   thumbnailSrc: string;
   quantity: number;
 }
+
+export type OrderData = {
+  fullName: string,
+  email: string,
+  orderId: string,
+  cartDetails: Array<CartItemType>,
+  totalWShipping: number
+}
