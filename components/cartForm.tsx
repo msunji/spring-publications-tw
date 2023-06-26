@@ -2,54 +2,61 @@ import { useState } from "react";
 import { useCartStore } from '@/store/store';
 import { CartItemType } from '@/types/types';
 import { nanoid } from 'nanoid';
+import { useRouter } from 'next/router';
 
 const generateOrderId = () => {
   return nanoid(10)
 }
 
-const handleSubmit = (orderData:{cart: Array<CartItemType>, totalCost: number}) => async (e:React.FormEvent) => {
-  e.preventDefault();
-  const form = e.target as HTMLFormElement;
-
-  const data = {
-    fullName: form.fullName.value as string,
-    email: form.email.value as string,
-    orderId: generateOrderId(),
-    cartDetails: orderData.cart,
-    total: orderData.totalCost
-  }
-  let error;
-  const { fullName, email } = data;
-  if (!fullName || fullName.trim() === "") {
-    alert('Please enter name');
-    error = "Please enter a valid name";
-    return error;
-  }
-  if (!email || email.trim() === "") {
-    alert("Please enter valid email address");
-    error = "Please enter a valid email address";
-    return error;
-  }
-
-  const res = await fetch("/api/form", {
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json",
-    },
-    method: "POST"
-  })
-
-  const result = await res.json();
-}
 
 export default function CartForm() {
   const [fullName, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const { cart, totalCost} = useCartStore();
 
+  const router = useRouter();
+
   const orderDetails = {
     cart,
     totalCost
+  }
+
+  const handleSubmit = (orderData:{cart: Array<CartItemType>, totalCost: number}) => async (e:React.FormEvent) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+
+    const data = {
+      fullName: form.fullName.value as string,
+      email: form.email.value as string,
+      orderId: generateOrderId(),
+      cartDetails: orderData.cart,
+      total: orderData.totalCost
+    }
+    let error;
+    const { fullName, email } = data;
+    if (!fullName || fullName.trim() === "") {
+      alert('Please enter name');
+      error = "Please enter a valid name";
+      return error;
+    }
+    if (!email || email.trim() === "") {
+      alert("Please enter valid email address");
+      error = "Please enter a valid email address";
+      return error;
+    }
+
+    fetch("/api/submit-order", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+      }
+    }).then(res => {
+      if (res.status === 200) {
+        router.replace("/thankyou");
+      }
+    }).catch(err => { console.error(err) })
   }
 
   return (
