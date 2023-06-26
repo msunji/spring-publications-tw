@@ -31,15 +31,15 @@ export function CartItems() {
                   </div>
                   <div><small>${price}</small></div>
                   <div>
-                     <a className="cursor-pointer text-error text-sm underline" onClick={() => removeFromCart(id)}>Remove</a>
+                     <a className="cursor-pointer text-error text-sm underline" onClick={() => removeFromCart(id)}>刪除</a>
                   </div>
                 </div>
                 <div className="flex flex-row relative">
-                      <button data-action="decrement" className="btn qty-btn rounded-e-none rounded-l-lg w-8" onClick={() => updateQty(id, "dec")}>
+                      <button data-action="decrement" className="qty-btn rounded-e-none rounded-l-lg w-8" onClick={() => updateQty(id, "dec")}>
                         <span className="m-auto text-3xl font-thin">-</span>
                       </button>
-                      <input type="number" placeholder="1" value={quantity} name="qty-input-number" className="input input-bordered text-center rounded-none focus:outline-none w-14" />
-                      <button data-action="increment" className="btn qty-btn rounded-l-none rounded-r-lg w-8" onClick={() => updateQty(id, "inc")}>
+                      <input type="number" placeholder="1" value={quantity} name="qty-input-number" className="input input-bordered text-center rounded-none focus:outline-none px-0 w-12 text-md" readOnly />
+                      <button data-action="increment" className="qty-btn rounded-l-none rounded-r-lg w-8" onClick={() => updateQty(id, "inc")}>
                         <span className="m-auto text-3xl font-thin">+</span>
                       </button>
                 </div>
