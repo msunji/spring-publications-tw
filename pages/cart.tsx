@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { CartItemType } from '@/types/types';
 import { useCartStore } from '@/store/store';
-import { CartItems } from '@/components/cartItems';
-import CartForm from '@/components/cartForm';
+import { CartItems } from "@/components/cartItems";
+import CartForm from "@/components/cartForm";
 import Link from 'next/link';
 import Image from 'next/image';
 
