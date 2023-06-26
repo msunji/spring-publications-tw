@@ -1,49 +1,11 @@
 import { useState } from "react";
 import { useCartStore } from '@/store/store';
 import { CartItemType } from '@/types/types';
+import { nanoid } from 'nanoid';
 
 const generateOrderId = () => {
-  let randomVal = String(window.crypto.getRandomValues(new Uint8Array(1)));
-  return randomVal.substring(1,7);
+  return nanoid(10)
 }
-
-// const handleSubmit = async (e: React.FormEvent) => {
-//   e.preventDefault();
-//   const form = e.target as HTMLFormElement;
-//   const cartDetails = form.dataset.cartData;
-
-//   const data = {
-//     fullName: form.fullName.value as string,
-//     email: form.email.value as string,
-//     orderId: generateOrderId(),
-//     cart: cartDetails
-//   }
-//   let error;
-//   const { fullName, email } = data;
-//   if (!fullName || fullName.trim() === "") {
-//     alert('Please enter name');
-//     error = "Please enter a valid name";
-//     return error;
-//   }
-//   if (!email || email.trim() === "") {
-//     alert("Please enter valid email address");
-//     error = "Please enter a valid email address";
-//     return error;
-//   }
-
-//   console.log(data);
-
-//   const res = await fetch("/api/form", {
-//     body: JSON.stringify(data),
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     method: "POST"
-//   })
-
-//   const result = await res.json();
-//   console.log("form works", result.data);
-// }
 
 const handleSubmit = (orderData:{cart: Array<CartItemType>, totalCost: number}) => async (e:React.FormEvent) => {
   e.preventDefault();
@@ -69,8 +31,6 @@ const handleSubmit = (orderData:{cart: Array<CartItemType>, totalCost: number}) 
     return error;
   }
 
-  console.log(data);
-
   const res = await fetch("/api/form", {
     body: JSON.stringify(data),
     headers: {
@@ -80,7 +40,6 @@ const handleSubmit = (orderData:{cart: Array<CartItemType>, totalCost: number}) 
   })
 
   const result = await res.json();
-  console.log("form works", result.data);
 }
 
 export default function CartForm() {
