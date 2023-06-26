@@ -55,7 +55,7 @@ export default function CartForm() {
     }).then(res => {
       if (res.status === 200) {
         router.replace("/thankyou");
-        // clearCart();
+        clearCart();
       }
     }).catch(err => { console.error(err) })
   }
