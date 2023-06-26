@@ -31,7 +31,7 @@ export function CartItems() {
                   </div>
                   <div><small>${price}</small></div>
                   <div>
-                     <a className="cursor-pointer text-error text-sm underline" onClick={() => removeFromCart(id)}>刪除</a>
+                    <a className="cursor-pointer text-error text-sm underline" onClick={() => removeFromCart(id)}>刪除</a>
                   </div>
                 </div>
                 <div className="flex flex-row relative">
