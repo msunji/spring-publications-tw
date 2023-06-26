@@ -12,7 +12,7 @@ type OrderData = {
     email: string,
     orderId: string,
     cartDetails: Array<CartItemType>,
-    total: number
+    totalWShipping: number
   }
 }
 
@@ -55,6 +55,7 @@ function sendMail(orderData : OrderData) {
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const { fullName, email, orderId, cartDetails, total } = req.body;
+  const totalWShipping = total + 60;
 
   try {
     if(!fullName || !email || !cartDetails) {
@@ -62,8 +63,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         data: "Customer details and cart details seem to be empty."
       })
     }
-    sendMail({ data: { fullName, email, orderId, cartDetails, total } });
-    res.status(200).json({ data: { fullName, email, orderId, cartDetails, total } });
+    sendMail({ data: { fullName, email, orderId, cartDetails, totalWShipping } });
+    res.status(200).json({ data: { fullName, email, orderId, cartDetails, totalWShipping } });
   } catch (err) {
     res.status(500).send({ error: "Failed to fetch data" });
   }
