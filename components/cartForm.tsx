@@ -12,7 +12,7 @@ const generateOrderId = () => {
 export default function CartForm() {
   const [fullName, setFullname] = useState("");
   const [email, setEmail] = useState("");
-  const { cart, totalCost} = useCartStore();
+  const { cart, totalCost, clearCart } = useCartStore();
 
   const router = useRouter();
 
@@ -53,6 +53,7 @@ export default function CartForm() {
         "Content-Type": "application/json",
       }
     }).then(res => {
+      clearCart();
       if (res.status === 200) {
         router.replace("/thankyou");
       }
