@@ -100,7 +100,7 @@ export default function Page({ data } : { data:Book }) {
                 </div>
               </div>
               <div className="grow">
-                <button className={`btn btn-block ${adding ? "btn-success loading" : "btn-primary"}`} onClick={() => addProduct(cartItem)}><span className="text-lg">{status}</span></button>
+                <button className={`btn btn-block ${adding ? "btn-success loading loading-xs" : "btn-primary"}`} onClick={() => addProduct(cartItem)}><span className="text-lg">{status}</span></button>
               </div>
             </div>
             <div>
