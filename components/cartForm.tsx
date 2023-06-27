@@ -12,16 +12,16 @@ const generateOrderId = () => {
 export default function CartForm() {
   const [fullName, setFullname] = useState("");
   const [email, setEmail] = useState("");
-  const { cart, totalCost, clearCart } = useCartStore();
+  const { cart, total, clearCart } = useCartStore();
 
   const router = useRouter();
 
   const orderDetails = {
     cart,
-    totalCost
+    total
   }
 
-  const handleSubmit = (orderData:{cart: Array<CartItemType>, totalCost: number}) => async (e:React.FormEvent) => {
+  const handleSubmit = (orderData:{cart: Array<CartItemType>, total: number}) => async (e:React.FormEvent) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
 
@@ -30,7 +30,7 @@ export default function CartForm() {
       email: form.email.value as string,
       orderId: generateOrderId(),
       cartDetails: orderData.cart,
-      total: orderData.totalCost
+      total: orderData.total
     }
     let error;
     const { fullName, email } = data;
