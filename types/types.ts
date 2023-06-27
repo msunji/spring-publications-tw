@@ -56,7 +56,9 @@ export type CartItemType = {
 export type OrderData = {
   fullName: string,
   email: string,
+  mobile: string,
+  pickup: string,
   orderId: string,
   cartDetails: Array<CartItemType>,
-  totalWShipping: number
+  total: number
 }
