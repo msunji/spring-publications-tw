@@ -1,24 +1,24 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 const sgMail = require("@sendgrid/mail");
-import { CartItemType } from '@/types/types';
+import { CartItemType, OrderData } from '@/types/types';
+import { postOrder } from '@/lib/airtable';
 
 type ResponseData = {
   data: string
 }
 
-type OrderData = {
-  data: {
-    fullName: string,
-    email: string,
-    orderId: string,
-    cartDetails: Array<CartItemType>,
-    totalWShipping: number
-  }
-}
-
-async function sendMail(orderData : OrderData) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   sgMail.setApiKey(process.env.SENDGRID_API);
-  const { data } = orderData;
+  const { fullName, email, orderId, cartDetails, total } = req.body;
+
+  const data = {
+    fullName,
+    email,
+    orderId,
+    cartDetails,
+    totalWShipping: total + 60
+  }
+
   const msg = {
     from: "mae.sunji@gmail.com",
     text: "Thank you for ordering from Spring Books Taiwan!",
@@ -30,16 +30,6 @@ async function sendMail(orderData : OrderData) {
       data: data
     },
   }
-  try {
-    await sgMail.send(msg);
-  } catch(err) {
-    console.error(err);
-  }
-}
-
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { fullName, email, orderId, cartDetails, total } = req.body;
-  const totalWShipping = total + 60;
 
   try {
     if(!fullName || !email || !cartDetails) {
@@ -47,8 +37,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         data: "Customer details and cart details seem to be empty."
       })
     }
-    await sendMail({ data: { fullName, email, orderId, cartDetails, totalWShipping } });
-    res.status(200).json({ data: { fullName, email, orderId, cartDetails, totalWShipping } });
+    await sgMail.send(msg);
+    await postOrder(data);
+    res.status(200).json({ data: data });
   } catch (err) {
     res.status(500).send({ error: "Failed to fetch data" });
   }
