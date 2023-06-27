@@ -22,7 +22,7 @@ export function CartItems() {
                 className="mr-8" />
             </div>
 
-            <div className="flex flex-1 justify-between items-center gap-4">
+            <div className="flex flex-1 justify-between items-center gap-4 flex-wrap">
               <div>
                 <div>
                   <span className="text-lg">
