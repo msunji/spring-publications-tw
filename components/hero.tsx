@@ -16,7 +16,7 @@ export default function Hero({ content }: HeroProps) {
           <h1 className="mb-5 text-5xl font-bold">{header}</h1>
           <p className="mb-5">{subtitle}</p>
           <Link href={link}>
-            <button className="btn btn-primary">See Books</button>
+            <button className="btn bg-transparent border-white border-2 text-white btn-wide md:btn-lg hover:bg-white hover:text-neutral">看看所有的商品</button>
           </Link>
         </div>
       </div>
