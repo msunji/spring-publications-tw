@@ -57,7 +57,7 @@ export default function Page() {
       </section>
       <section>
         <div className="container">
-          <h1>Contact Details</h1>
+          <h1>運送資料</h1>
           <CartForm />
         </div>
       </section>
