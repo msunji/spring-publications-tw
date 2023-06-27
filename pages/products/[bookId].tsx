@@ -12,6 +12,7 @@ export default function Page({ data } : { data:Book }) {
   const addToCart = useCartStore(state => state.addToCart);
   const { id, title, author, price, desc } = data;
   const [qty, setQty] = useState(1);
+  const [adding, setAdding] = useState(false);
   const [status, setStatus] = useState("加入購物車");
   const [addCart, setAddCart] = useState(false);
 
@@ -45,8 +46,10 @@ export default function Page({ data } : { data:Book }) {
   }
   const addProduct = (product:CartItemType) => {
     addToCart(product);
-    setStatus("加入成功!");
+    setAdding(true);
+    setStatus("加入中!");
     setTimeout(() => {
+      setAdding(false);
       setStatus("加入購物車")
     }, 3000);
   }
@@ -97,7 +100,7 @@ export default function Page({ data } : { data:Book }) {
                 </div>
               </div>
               <div className="grow">
-                <button className={`btn btn-block ${status === "加入成功!" ? "btn-success" : "btn-primary"}`} onClick={() => addProduct(cartItem)}><span className="text-lg">{status}</span></button>
+                <button className={`btn btn-block ${adding ? "btn-success loading" : "btn-primary"}`} onClick={() => addProduct(cartItem)}><span className="text-lg">{status}</span></button>
               </div>
             </div>
             <div>
