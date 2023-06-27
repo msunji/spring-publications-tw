@@ -9,15 +9,19 @@ type ResponseData = {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   sgMail.setApiKey(process.env.SENDGRID_API);
-  const { fullName, email, orderId, cartDetails, total } = req.body;
+  const { fullName, email, mobile, pickup, orderId, cartDetails, total } = req.body;
 
   const data = {
     fullName,
     email,
+    mobile,
+    pickup,
     orderId,
     cartDetails,
-    totalWShipping: total + 60
+    total
   }
+
+  console.log(data);
 
   const msg = {
     from: "mae.sunji@gmail.com",
@@ -25,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     template_id: "d-8eb9a55a89e54d4eb8da1957044f3c86",
     html: "<p>Thank you for ordering from Spring Books Taiwan</p>",
     to: data.email,
-    bcc: "mae.sunji@gmail.com",
+    bcc: ["xiaolu500@gmail.com", "spring1902@yahoo.com"],
     dynamic_template_data: {
       data: data
     },
@@ -37,7 +41,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         data: "Customer details and cart details seem to be empty."
       })
     }
-    await sgMail.send(msg);
+    // await sgMail.send(msg);
     await postOrder(data);
     res.status(200).json({ data: data });
   } catch (err) {
