@@ -30,9 +30,11 @@ export default function CartForm() {
     const data = {
       fullName: form.fullName.value as string,
       email: form.email.value as string,
-      orderId: generateOrderId(),
-      cartDetails: orderData.cart,
-      total: orderData.total
+      mobile: form.mobile.value as string,
+      pickup: form.pickup.value as string,
+      orderId: generateOrderId() as string,
+      cartDetails: orderData.cart as Array<CartItemType>,
+      total: orderData.total as number
     }
     let error;
     const { fullName, email } = data;
@@ -106,6 +108,7 @@ export default function CartForm() {
         placeholder="手機號碼"
         className="input input-bordered w-full rounded mb-4"
         value={mobile}
+        // pattern="[0-9]"
         onChange={(e) => {
           setMobile(e.target.value);
         }}
@@ -121,7 +124,6 @@ export default function CartForm() {
         type="text"
         placeholder="距離您家最近的便利商店"
         className="input input-bordered w-full rounded mb-4"
-        pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
         value={pickup}
         onChange={(e) => {
           setPickup(e.target.value);
