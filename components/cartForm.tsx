@@ -12,6 +12,8 @@ const generateOrderId = () => {
 export default function CartForm() {
   const [fullName, setFullname] = useState("");
   const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [pickup, setPickup] = useState("");
   const { cart, total, clearCart } = useCartStore();
 
   const router = useRouter();
@@ -66,12 +68,12 @@ export default function CartForm() {
       className="max-w-full md:max-w-[50%]"
     >
     <label className="block mb-2 flex align-" htmlFor="full-name">
-      <span className="block text-sm font-medium text-slate-700">Full Name</span>
+      <span className="block text-sm font-medium text-slate-700">姓名</span>
     </label>
     <input
         id="fullName"
         type="text"
-        placeholder="Full Name"
+        placeholder="姓名"
         className="input input-bordered w-full rounded mb-2"
         value={fullName}
         minLength={2}
@@ -81,12 +83,12 @@ export default function CartForm() {
         required
       />
     <label className="block mb-2" htmlFor="email">
-      <span className="block text-sm font-medium text-slate-700">Email</span>
+      <span className="block text-sm font-medium text-slate-700">電子郵件</span>
     </label>
     <input
         id="email"
         type="email"
-        placeholder="Email"
+        placeholder="電子郵件"
         className="input input-bordered w-full rounded mb-4"
         value={email}
         onChange={(e) => {
@@ -95,7 +97,39 @@ export default function CartForm() {
         minLength={2}
         required
       />
-    <button className="btn btn-primary" type="submit">
+    <label className="block mb-2" htmlFor="mobile">
+      <span className="block text-sm font-medium text-slate-700">手機號碼</span>
+    </label>
+    <input
+        id="mobile"
+        type="tel"
+        placeholder="手機號碼"
+        className="input input-bordered w-full rounded mb-4"
+        value={mobile}
+        onChange={(e) => {
+          setMobile(e.target.value);
+        }}
+        minLength={2}
+        required
+    />
+    <label className="block mb-2" htmlFor="pickup">
+    <span className="block text-sm font-medium text-slate-700">距離您家最近的便利商店 （7-11，、全家、OK Mart、萊爾富)</span>
+    <span className="inline-block text-sm">查詢地址、門市店號／店名、縣市、鄉鎮市區、郵郵遞區號</span>
+    </label>
+    <input
+        id="pickup"
+        type="text"
+        placeholder="距離您家最近的便利商店"
+        className="input input-bordered w-full rounded mb-4"
+        pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+        value={pickup}
+        onChange={(e) => {
+          setPickup(e.target.value);
+        }}
+        minLength={2}
+        required
+    />
+    <button className="btn btn-primary" type="submit" disabled={cart.length ? false : true}>
       Submit Order
     </button>
   </form>
