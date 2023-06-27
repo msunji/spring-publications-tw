@@ -1,6 +1,6 @@
 import { getPages } from '@/lib/airtable';
 import { Book } from '@/types/types';
-import Link from 'next/link';
+
 import Paginated from '@/components/paginated';
 
 
