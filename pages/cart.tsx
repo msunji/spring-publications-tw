@@ -22,14 +22,14 @@ const EmptyCart = () => {
 }
 
 export default function Page() {
-  const { cart, totalCost, clearCart } = useCartStore();
+  const { cart, total, subtotal, shippingFee, clearCart } = useCartStore();
 
   const [cartState, setCartState] = useState<CartItemType[]>();
 
   useEffect(() => {
     setCartState(cart);
   }, [cart])
-  
+
   return (
     <>
       <section className="section-divider">
@@ -46,10 +46,11 @@ export default function Page() {
           <div className=" border-base-200 py-5 justify-end flex border-t border-base-400">
             <div>
               <p className="flex justify-between text-lg">
-                <span className="mr-5 text-xl"><b>Subtotal</b></span> NT${totalCost}.00<br />
+                <span className="mr-5 text-xl"><b>Subtotal</b></span> NT${subtotal}.00<br />
               </p>
-              <p className="flex justify-between text-secondary"><span className="mr-5 text-xl mb-8"><b>Shipping</b></span> <span>NT$60.00</span></p>
-              <p className="text-lg flex justify-between"><span className="mr-5 text-xl"><b>Total</b></span> <span>NT${totalCost + 60}.00</span></p>
+              <p className="flex justify-between text-secondary mb-8 text-lg"><span className="mr-5">
+                <b>Shipping</b></span> <span>NT${shippingFee}.00</span></p>
+              <p className="text-lg flex justify-between"><span className="mr-5 text-xl"><b>Total</b></span> <span>NT${total}.00</span></p>
             </div>
           </div>
         </div>

@@ -6,7 +6,9 @@ import { CartItemType } from '@/types/types';
 type CartState = {
   cart: Array<CartItemType>;
   totalItems: number;
-  totalCost: number;
+  subtotal: number;
+  total: number;
+  shippingFee: number;
 }
 type CartActions = {
   addToCart: (cartItem:CartItemType) => any;
@@ -19,7 +21,9 @@ type CartActions = {
 const initialState:CartState = {
   cart: [],
   totalItems: 0,
-  totalCost: 0
+  subtotal: 0,
+  total: 0,
+  shippingFee: 60
 }
 
 // Helper functions for calculating the total number of items in cart and total cost
@@ -27,7 +31,7 @@ const getTotalItems = (cart:Array<CartItemType>) => {
   return cart.reduce((prev, curr) => prev + curr.quantity, 0);
 }
 
-const getTotalCost = (cart:Array<CartItemType>) => {
+const getSubtotal = (cart:Array<CartItemType>) => {
   return cart
   .map(item => {
     return item.quantity * item.price
@@ -39,7 +43,7 @@ const getTotalCost = (cart:Array<CartItemType>) => {
 export const useCartStore = create<CartState & CartActions>()(
   devtools(
     persist(
-      (set) => ({
+      (set, get) => ({
         ...initialState,
         addToCart: (cartItem:CartItemType) => {
           set((state) => {
@@ -53,7 +57,8 @@ export const useCartStore = create<CartState & CartActions>()(
             return {
               cart,
               totalItems: getTotalItems(cart),
-              totalCost: getTotalCost(cart)
+              subtotal: getSubtotal(cart),
+              total: getSubtotal(cart) + get().shippingFee,
             }
           })
         },
@@ -67,7 +72,8 @@ export const useCartStore = create<CartState & CartActions>()(
             return {
               cart,
               totalItems: getTotalItems(cart),
-              totalCost: getTotalCost(cart)
+              subtotal: getSubtotal(cart),
+              total: getSubtotal(cart) + get().shippingFee,
             }
           })
         },
@@ -88,7 +94,8 @@ export const useCartStore = create<CartState & CartActions>()(
             return {
               cart,
               totalItems: getTotalItems(cart),
-              totalCost: getTotalCost(cart)
+              subtotal: getSubtotal(cart),
+              total: getSubtotal(cart) + get().shippingFee,
             }
           })
         },
