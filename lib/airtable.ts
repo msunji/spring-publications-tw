@@ -1,5 +1,5 @@
 const Airtable = require("airtable");
-import { Book, HeroType } from '@/types/types';
+import { Book, HeroType, OrderData } from '@/types/types';
 
 function initAirtable() {
   const base = new Airtable({ apiKey:process.env.AIRTABLE_TOKEN }).base(process.env.AIRTABLE_BASE_ID);
@@ -149,4 +149,31 @@ export function getHero() {
           return resolve(heroData)
       });
   });
+}
+
+export function postOrder(orderData:OrderData) {
+  const base = initAirtable();
+  const { fullName, email, orderId, cartDetails, totalWShipping } = orderData;
+
+  const products = cartDetails.map(product => product.id)
+
+  return new Promise<{}>((resolve, reject) => {
+    base('Orders').create({
+      "Name": fullName,
+      "Mobile": "123435345",
+      "Email": email,
+      "Order ID": orderId,
+      "Total Cost": totalWShipping,
+      "Status": "Received Order",
+      "Products": [
+        ...products
+      ]
+    }, function(err: string) {
+      if (err) {
+        console.error(err);
+        return reject(err);
+      }
+      return resolve("New record added");
+    });
+  })
 }
