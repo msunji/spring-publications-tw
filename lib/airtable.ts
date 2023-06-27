@@ -162,7 +162,6 @@ export function postOrder(orderData:OrderData) {
       "Name": fullName,
       "Mobile": mobile,
       "Email": email,
-
       "Pickup": pickup,
       "Order ID": orderId,
       "Total Cost": total,
