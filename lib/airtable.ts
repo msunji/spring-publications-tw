@@ -153,17 +153,19 @@ export function getHero() {
 
 export function postOrder(orderData:OrderData) {
   const base = initAirtable();
-  const { fullName, email, orderId, cartDetails, totalWShipping } = orderData;
+  const { fullName, email, mobile, pickup, orderId, cartDetails, total } = orderData;
 
   const products = cartDetails.map(product => product.id)
 
   return new Promise<{}>((resolve, reject) => {
     base('Orders').create({
       "Name": fullName,
-      "Mobile": "123435345",
+      "Mobile": mobile,
       "Email": email,
+
+      "Pickup": pickup,
       "Order ID": orderId,
-      "Total Cost": totalWShipping,
+      "Total Cost": total,
       "Status": "Received Order",
       "Products": [
         ...products
