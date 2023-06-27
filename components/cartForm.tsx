@@ -102,19 +102,22 @@ export default function CartForm() {
     <label className="block mb-2" htmlFor="mobile">
       <span className="block text-sm font-medium text-slate-700">手機號碼</span>
     </label>
-    <input
-        id="mobile"
-        type="tel"
-        placeholder="手機號碼"
-        className="input input-bordered w-full rounded mb-4"
-        value={mobile}
-        // pattern="[0-9]"
-        onChange={(e) => {
-          setMobile(e.target.value);
-        }}
-        minLength={2}
-        required
-    />
+    <div className="flex mb-4 input input-bordered rounded items-center">
+      <span className="mr-2">+886</span>
+      <input
+          id="mobile"
+          type="tel"
+          placeholder="手機號碼"
+          className=" w-full"
+          value={mobile}
+          // pattern="[0-9]"
+          onChange={(e) => {
+            setMobile(e.target.value);
+          }}
+          minLength={2}
+          required
+      />
+    </div>
     <label className="block mb-2" htmlFor="pickup">
     <span className="block text-sm font-medium text-slate-700">距離您家最近的便利商店 （7-11，、全家、OK Mart、萊爾富)</span>
     <span className="inline-block text-sm">查詢地址、門市店號／店名、縣市、鄉鎮市區、郵郵遞區號</span>
