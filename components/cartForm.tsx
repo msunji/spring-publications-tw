@@ -120,7 +120,7 @@ export default function CartForm() {
     </div>
     <label className="block mb-2" htmlFor="pickup">
     <span className="block text-sm font-medium text-slate-700">距離您家最近的便利商店 （7-11，、全家、OK Mart、萊爾富)</span>
-    <span className="inline-block text-sm">查詢地址、門市店號／店名、縣市、鄉鎮市區、郵郵遞區號</span>
+    <span className="inline-block text-sm">地址、門市店號／店名、縣市、鄉鎮市區、郵郵遞區號</span>
     </label>
     <input
         id="pickup"
