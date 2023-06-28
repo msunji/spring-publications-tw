@@ -41,7 +41,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         data: "Customer details and cart details seem to be empty."
       })
     }
-    // await sgMail.send(msg);
+    await sgMail.send(msg);
     await postOrder(data);
     res.status(200).json({ data: data });
   } catch (err) {
