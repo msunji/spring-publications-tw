@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 const sgMail = require("@sendgrid/mail");
-import { CartItemType, OrderData } from '@/types/types';
 import { postOrder } from '@/lib/airtable';
 
 type ResponseData = {
@@ -21,8 +20,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     total
   }
 
-  console.log(data);
-
   const msg = {
     from: "mae.sunji@gmail.com",
     text: "Thank you for ordering from Spring Books Taiwan!",
@@ -36,7 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    if(!fullName || !email || !cartDetails) {
+    if(!fullName || !email || !mobile || !pickup|| !cartDetails) {
       return res.status(400).json({
         data: "Customer details and cart details seem to be empty."
       })
