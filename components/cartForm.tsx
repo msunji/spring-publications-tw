@@ -157,11 +157,12 @@ export default function CartForm() {
         name="mobile"
         type="tel"
         placeholderText="手機號碼 (required)"
-        regPattern="[0-9]{1,13}"
+        regPattern="[0-9\-\ ]{1,16}"
+        // regPattern="[0-9]"
         minLen={9}
         onChange={handleChange}
         value={formData.mobile}
-        errorMsg="Please input a valid Taiwan mobile number"
+        errorMsg="Please input a valid Taiwan mobile number (e.g. 0912345678)"
       />
       <CartFormInput
         id="pickup"
