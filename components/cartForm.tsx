@@ -4,16 +4,72 @@ import { CartItemType } from '@/types/types';
 import { nanoid } from 'nanoid';
 import { useRouter } from 'next/router';
 
+type InputProps = {
+  id: string;
+  name: string;
+  type: "text" | "number" | "email" | "tel";
+  errorMsg: string;
+  placeholderText?: string;
+  label: string;
+  minLen?: number;
+  regPattern?: string;
+  value: number | string;
+  onChange: (e:React.ChangeEvent<HTMLInputElement>) => void
+}
+
 const generateOrderId = () => {
   return nanoid(10)
 }
 
+const initialFormData = {
+  fullName: "",
+  email: "",
+  mobile: "",
+  pickup: "",
+}
+
+const CartFormInput = ({ id, name, type, errorMsg, label, minLen, placeholderText, regPattern, onChange, value } : InputProps) => {
+  const [error, setError] = useState("");
+
+  const handleInvalidity = (e:React.FormEvent) => {
+    const target = e.target as HTMLInputElement;
+    if (target.validationMessage) {
+      setError(errorMsg);
+    }
+  }
+
+  const handleBlur = (e:React.FormEvent) => {
+    const target = e.target as HTMLInputElement;
+    if (target.validationMessage) {
+      setError(errorMsg);
+    }
+  }
+  return (
+    <>
+      <label className="block my-2" htmlFor={name}>
+        <span className="block text-sm font-medium text-slate-700">{label}</span>
+      </label>
+      <input
+        id={id}
+        type={type}
+        placeholder={placeholderText}
+        className="input input-bordered w-full rounded form-input"
+        onBlur={handleBlur}
+        onInvalid={handleInvalidity}
+        pattern={regPattern}
+        minLength={minLen}
+        onChange={onChange}
+        value={value}
+        required
+      />
+      <span className="text-sm text-error input-error-msg">{error}</span>
+    </>
+  )
+}
 
 export default function CartForm() {
-  const [fullName, setFullname] = useState("");
-  const [email, setEmail] = useState("");
-  const [mobile, setMobile] = useState("");
-  const [pickup, setPickup] = useState("");
+  const [formData, setFormData] = useState(initialFormData);
+
   const { cart, total, clearCart } = useCartStore();
 
   const router = useRouter();
@@ -23,118 +79,103 @@ export default function CartForm() {
     total
   }
 
+  // Event handlers
+  const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value
+    })
+  }
+
   const handleSubmit = (orderData:{cart: Array<CartItemType>, total: number}) => async (e:React.FormEvent) => {
     e.preventDefault();
+
     const form = e.target as HTMLFormElement;
+    const isValid = form.checkValidity();
 
-    const data = {
-      fullName: form.fullName.value as string,
-      email: form.email.value as string,
-      mobile: form.mobile.value as string,
-      pickup: form.pickup.value as string,
-      orderId: generateOrderId() as string,
-      cartDetails: orderData.cart as Array<CartItemType>,
-      total: orderData.total as number
-    }
-    let error;
-    const { fullName, email } = data;
-    if (!fullName || fullName.trim() === "") {
-      alert('Please enter name');
-      error = "Please enter a valid name";
-      return error;
-    }
-    if (!email || email.trim() === "") {
-      alert("Please enter valid email address");
-      error = "Please enter a valid email address";
-      return error;
-    }
+    form.classList.add("submitted");
 
-    fetch("/api/submit-order", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
+    if (isValid) {
+      const data = {
+        fullName: form.fullName.value as string,
+        email: form.email.value as string,
+        mobile: form.mobile.value as string,
+        pickup: form.pickup.value as string,
+        orderId: generateOrderId() as string,
+        cartDetails: orderData.cart as Array<CartItemType>,
+        total: orderData.total as number
       }
-    }).then(res => {
-      if (res.status === 200) {
-        router.replace("/thankyou");
-        clearCart();
-      }
-    }).catch(err => { console.error(err) })
+      fetch("/api/submit-order", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "Content-Type": "application/json",
+        }
+      }).then(res => {
+        if (res.status === 200) {
+          router.replace("/thankyou");
+          clearCart();
+        }
+      }).catch(err => { console.error(err) })
+    }
   }
 
   return (
     <form
       onSubmit={handleSubmit(orderDetails)}
       className="max-w-full md:max-w-[50%]"
+      noValidate
     >
-    <label className="block mb-2 flex align-" htmlFor="full-name">
-      <span className="block text-sm font-medium text-slate-700">姓名</span>
-    </label>
-    <input
+    <div>
+      <CartFormInput
         id="fullName"
+        label="姓名"
+        name="fullName"
         type="text"
-        placeholder="姓名"
-        className="input input-bordered w-full rounded mb-2"
-        value={fullName}
-        minLength={2}
-        onChange={(e) => {
-          setFullname(e.target.value);
-        }}
-        required
+        placeholderText="姓名 (required)"
+        minLen={1}
+        onChange={handleChange}
+        value={formData.fullName}
+        errorMsg="Please input your full name."
       />
-    <label className="block mb-2" htmlFor="email">
-      <span className="block text-sm font-medium text-slate-700">電子郵件</span>
-    </label>
-    <input
+      <CartFormInput
         id="email"
+        label="電子郵件"
+        name="email"
         type="email"
-        placeholder="電子郵件"
-        className="input input-bordered w-full rounded mb-4"
-        value={email}
-        onChange={(e) => {
-          setEmail(e.target.value);
-        }}
-        minLength={2}
-        required
+        placeholderText="電子郵件 (required)"
+        regPattern="[a-zA-Z0-9._-]*@[a-zA-Z]*\.[a-zA-Z]"
+        minLen={4}
+        onChange={handleChange}
+        value={formData.email}
+        errorMsg="Please input a valid email address."
       />
-    <label className="block mb-2" htmlFor="mobile">
-      <span className="block text-sm font-medium text-slate-700">手機號碼</span>
-    </label>
-    <div className="flex mb-4 input input-bordered rounded items-center">
-      <span className="mr-2">+886</span>
-      <input
-          id="mobile"
-          type="tel"
-          placeholder="手機號碼"
-          className=" w-full"
-          value={mobile}
-          // pattern="[0-9]"
-          onChange={(e) => {
-            setMobile(e.target.value);
-          }}
-          minLength={2}
-          required
+      <CartFormInput
+        id="mobile"
+        label="手機號碼 (e.g. 0912345678)"
+        name="mobile"
+        type="tel"
+        placeholderText="手機號碼 (required)"
+        regPattern="[0-9]{1,13}"
+        minLen={9}
+        onChange={handleChange}
+        value={formData.mobile}
+        errorMsg="Please input a valid Taiwan mobile number"
+      />
+      <CartFormInput
+        id="pickup"
+        label="距離您家最近的便利商店 （7-11，、全家、OK Mart、萊爾富)"
+        name="pickup"
+        type="text"
+        placeholderText="距離您家最近的便利商店 (required)"
+        minLen={1}
+        onChange={handleChange}
+        value={formData.pickup}
+        errorMsg="Please input a valid address."
       />
     </div>
-    <label className="block mb-2" htmlFor="pickup">
-    <span className="block text-sm font-medium text-slate-700">距離您家最近的便利商店 （7-11，、全家、OK Mart、萊爾富)</span>
-    <span className="inline-block text-sm">地址、門市店號／店名、縣市、鄉鎮市區、郵郵遞區號</span>
-    </label>
-    <input
-        id="pickup"
-        type="text"
-        placeholder="距離您家最近的便利商店"
-        className="input input-bordered w-full rounded mb-4"
-        value={pickup}
-        onChange={(e) => {
-          setPickup(e.target.value);
-        }}
-        minLength={2}
-        required
-    />
-    <button className="btn btn-primary" type="submit" disabled={cart.length ? false : true}>
+    <button className="btn btn-primary mt-4" type="submit" disabled={cart.length ? false : true}>
       Submit Order
     </button>
   </form>

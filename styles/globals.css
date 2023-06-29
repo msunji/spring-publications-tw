@@ -52,6 +52,15 @@
 }
 
 @layer components {
+  .submitted input:invalid {
+    @apply border-error outline outline-[#FFBEB6] outline-offset-0;
+  }
+  .input-error-msg {
+    @apply hidden;
+  }
+  input.form-input:invalid + .input-error-msg {
+    @apply block mt-2;
+  }
   .container-lg {
     @apply max-w-screen-xl mx-auto;
   }
