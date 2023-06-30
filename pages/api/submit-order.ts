@@ -10,6 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   sgMail.setApiKey(process.env.SENDGRID_API);
 
   const data = req.body;
+  const bccList = process.env.BCC_LIST?.split(",");
 
   const msg = {
     from: "mae.sunji@gmail.com",
@@ -17,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     template_id: "d-8eb9a55a89e54d4eb8da1957044f3c86",
     html: "<p>Thank you for ordering from Spring Books Taiwan</p>",
     to: data.email,
-    bcc: ["mae.sunji@gmail.com","xiaolu500@gmail.com","newspring1902@gmail.com"],
+    bcc: bccList,
     dynamic_template_data: {
       data
     },
