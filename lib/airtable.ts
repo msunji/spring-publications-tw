@@ -153,9 +153,9 @@ export function getHero() {
 
 export function postOrder(orderData:OrderData) {
   const base = initAirtable();
-  const { fullName, email, mobile, pickup, orderId, cartDetails, total } = orderData;
+  const { fullName, email, mobile, pickup, orderId, cartDetails, total, totalItems } = orderData;
 
-  const products = cartDetails.map(product => product.id)
+  const orderDetailText = cartDetails.map((cartItem) => ` - **${cartItem.title}** — x${cartItem.quantity}\n`).join("");
 
   return new Promise<{}>((resolve, reject) => {
     base('Orders').create({
@@ -165,9 +165,11 @@ export function postOrder(orderData:OrderData) {
       "Pickup": pickup,
       "Order ID": orderId,
       "Total Cost": total,
+      "Total Items": totalItems,
       "Status": "Received Order",
-      "Products": [
-        ...products
+      "Order Details": orderDetailText,
+      "Product IDs": [
+        ...cartDetails.map(product => product.id)
       ]
     }, function(err: string) {
       if (err) {
@@ -178,3 +180,5 @@ export function postOrder(orderData:OrderData) {
     });
   })
 }
+
+
