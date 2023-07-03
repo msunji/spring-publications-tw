@@ -40,7 +40,7 @@ export default function CartForm() {
     resolver: yupResolver(schema)
   });
 
-  const { cart, total, clearCart } = useCartStore();
+  const { cart, total, totalItems, clearCart } = useCartStore();
 
   const router = useRouter();
 
@@ -48,6 +48,7 @@ export default function CartForm() {
     const data = {
       ...formData,
       orderId: generateOrderId(),
+      totalItems: totalItems,
       cartDetails: cart,
       total
     }
