@@ -60,5 +60,6 @@ export type OrderData = {
   pickup: string,
   orderId: string,
   cartDetails: Array<CartItemType>,
-  total: number
+  total: number,
+  totalItems: number
 }
